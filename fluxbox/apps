@@ -1,0 +1,106 @@
+[app] (name=xterm)
+  [Dimensions]	{774 357}
+  [Position]	(UPPERLEFT)	{180 25}
+[end]
+[app] (name=gkrellm)
+  [Position]	(UPPERLEFT)	{952 363}
+  [Sticky]	{yes}
+  [Layer]	{8}
+[end]
+[app] (name=gaim)
+  [Workspace]	{0}
+  [Dimensions]	{220 742}
+  [Position]	(UPPERLEFT)	{-1 23}
+  [Close]	{yes}
+[end]
+[app] (name=pidgin) (class=Pidgin) (role=buddy_list)
+  [Workspace]	{0}
+  [Head]	{1}
+  [Dimensions]	{185 747}
+  [Position]	(UPPERLEFT)	{0 0}
+  [Deco]	{NORMAL}
+  [Close]	{yes}
+[end]
+[app] (name=gecko) (class=Firefox-bin)
+  [Workspace]	{1}
+[end]
+[app] (name=pidgin) (class=Pidgin) (role=conversation)
+  [Workspace]	{0}
+[end]
+[app] (name=gecko) (class=Thunderbird-bin)
+  [Workspace]	{1}
+[end]
+[app] (name=Navigator) (class=Firefox) (role=browser)
+  [Workspace]	{1}
+[end]
+[app] (name=sterm1) (class=URxvt)
+  [Workspace]	{3}
+  [Head]	{1}
+  [Dimensions]	{599 272}
+  [Position]	(UPPERLEFT)	{341 0}
+  [Deco]	{NORMAL}
+  [Sticky]	{no}
+  [Close]	{yes}
+[end]
+[app] (name=sterm3) (class=URxvt)
+  [Workspace]	{1}
+  [Head]	{1}
+  [Dimensions]	{795 584}
+  [Position]	(UPPERLEFT)	{42 14}
+  [Deco]	{NORMAL}
+  [Sticky]	{no}
+  [Close]	{yes}
+[end]
+[app] (name=sterm2) (class=URxvt)
+  [Workspace]	{3}
+  [Head]	{1}
+  [Dimensions]	{431 636}
+  [Position]	(UPPERLEFT)	{0 0}
+  [Deco]	{NORMAL}
+  [Sticky]	{no}
+  [Close]	{yes}
+[end]
+[app] (name=urxvt) (class=URxvt)
+  [Dimensions]	{571 428}
+  [Position]	(UPPERLEFT)	{573 617}
+  [Close]	{yes}
+[end]
+[app] (name=kate) (class=Kate) (role=__KateMainWindow#1)
+  [Dimensions]	{1087 733}
+  [Close]	{yes}
+[end]
+[app] (name=amarokapp) (class=Amarokapp) (role=PlaylistWindow)
+  [Workspace]	{2}
+  [Close]	{yes}
+[end]
+[app] (name=Navigator) (class=Shiretoko) (role=browser)
+  [Workspace]	{1}
+  [Deco]	{NORMAL}
+  [Close]	{yes}
+[end]
+[app] (name=xpad) (class=xpad) (role=info-1LEU1U)
+  [Workspace]	{1}
+  [Head]	{1}
+  [Dimensions]	{354 374}
+  [Position]	(UPPERLEFT)	{85 13}
+  [Deco]	{NONE}
+  [Hidden]	{yes}
+  [Sticky]	{yes}
+  [Layer]	{12}
+  [Close]	{yes}
+[end]
+[app] (name=orage) (class=Orage)
+  [Workspace]	{0}
+  [Head]	{1}
+  [Dimensions]	{201 188}
+  [Position]	(UPPERLEFT)	{787 533}
+  [Deco]	{NONE}
+  [Hidden]	{yes}
+  [Sticky]	{yes}
+  [Layer]	{12}
+  [Close]	{yes}
+[end]
+[app] (name=win) (class=Xpdf)
+  [Position]	(UPPERLEFT)	{3 42}
+  [Close]	{yes}
+[end]

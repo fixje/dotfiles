@@ -1,0 +1,33 @@
+XTerm*eightBitInput: false
+XTerm*metaSendsEscape: true
+XTerm*background: black
+XTerm*foreground: grey
+
+!URxvt.perl-ext-common: matcher,tabbed
+URxvt.perl-ext-common: matcher
+URxvt.urlLauncher: firefox
+URxvt.background: black
+URxvt.foreground: grey
+!URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=10 
+URxvt.scrollBar: false
+URxvt.visualBell: true
+URxvt.cursorBlink: false
+URxvt.cursorColor: green
+URxvt.fading: 50
+URxvt.underlineColor: pink
+URxvt.saveLines: 8192
+!!scroll on keypress but not new output
+URxvt.scrollTtyKeypress:true
+URxvt.scrollTtyOutput:  false
+
+URxvt*depth: 32
+URxvt*background: rgba:0000/0000/0000/cccc
+
+# change ugly blue
+URxvt.color4: #4956ce
+URxvt.color12: #4956ce
+
+# yeahconsole settings
+yeahconsole*term:urxvt
+yeahconsole*consoleHeight:30
+yeahconsole*toggleKey:None+XF86LaunchA

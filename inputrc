@@ -1,0 +1,25 @@
+set bell-style                        none
+set expand-tilde                      on
+set horizontal-scroll-mode            off
+set match-hidden-files                off
+set show-all-if-ambiguous             on
+set visible-stats                     on
+
+# to view the keycodes in shell press "CTRL-v key"
+# it prints the keycode where ^[ must be translated
+# to \e in inputrc syntax
+
+# search history with PageUp/Down
+"\e[5~":	history-search-backward
+"\e[6~":	history-search-forward
+
+# F1 for sudo -s
+"\e[11~":	"sudo -s"
+"\eOP":	"sudo -s"
+# F2 pipe through less
+"\e[12~":	" | less"
+# F3 dmesg
+"\e[13~":	"dmesg"
+"\eOR":	"dmesg"
+
+"\e[2~":  insert-last-argument
