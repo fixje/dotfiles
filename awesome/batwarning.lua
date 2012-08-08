@@ -3,9 +3,28 @@
 -- depends on vicious and may be ugly, but it works ;)
 -- written by Markus Fuchs 2012 <mail@mfuchs.org>
 -- Licensed under the GNU General Public License v2
+-- known issues: complains when battery is charging
 ---------------------------------------------------------
 
 local helpers = require("vicious.helpers")
+
+-- store levels we have warned for
+batt_already_warned = 0
+-- text widget for battery
+battinfo_text = widget({ type = "textbox" })
+battinfo_text.align = "right"
+battinfo_text.text = ""
+
+shutdown_timer = nil
+shutdown_time = 120
+local function countdown_shutdown()
+	shutdown_time = shutdown_time - 1
+	battinfo_text.text = "Shutting down in "..shutdown_time.."s"
+	if shutdown_time == 0 then
+		awful.util.spawn_with_shell("sudo init 0", 1)
+		shutdown_time = 0
+	end
+end
 
 local function get_bat_percentage()
 	local battery =  helpers.pathtotable("/sys/class/power_supply/BAT0")
@@ -23,12 +42,26 @@ local function get_bat_percentage()
 	return percent
 end
 
+local function create_bottom_bar()
+	local bottom_bar = {}
+	for s = 1, screen.count() do
+	    -- Create the wibox
+	    bottom_bar[s] = awful.wibox({ position = "bottom", screen = s })
+	    -- Add widgets to the wibox - order matters
+	    bottom_bar[s].widgets = {
+		battinfo_text,
+		layout = awful.widget.layout.horizontal.rightleft
+	    }
+    end
+end
+
 local function bat_warning()
 	local p = get_bat_percentage()
 	if p == 0 then
 		return
 	end
-	if p < 20 then
+	if p < 20 and p > 9 and batt_already_warned < 1 then
+		batt_already_warned = 1
 		for s = 1, screen.count() do
 			naughty.notify({preset = naughty.config.presets.low, 
 				title = "Battery Warning", 
@@ -37,7 +70,8 @@ local function bat_warning()
 				timeout = 7,
 				screen = s})
 		end
-	elseif p < 10 then
+	elseif p < 10 and p > 4 then
+		batt_already_warned = 2
 		for s = 1, screen.count() do
 			naughty.notify({preset = naughty.config.presets.normal,
 				title = "Battery Warning",
@@ -47,10 +81,17 @@ local function bat_warning()
 				screen = s})
 			end
 	elseif p < 5 then
+		batt_already_warned = 3
+		if shutdown_timer == nil then
+			create_bottom_bar()
+			shutdown_timer = timer({timeout = 1})
+			shutdown_timer:add_signal("timeout", countdown_shutdown)
+			shutdown_timer:start()
+		end
 		for s = 1, screen.count() do
 			naughty.notify({preset = naughty.config.presets.critical,
 				title = "Battery Warning",
-				text = "Battery level CRITICAL!",
+				text = "Battery level CRITICAL! Shutdown in 2 minutes.",
 				icon = "/usr/share/awesome/themes/icons/batterymon/battery_empty.png",
 				timeout = 0,
 				screen = s})
@@ -59,6 +100,7 @@ local function bat_warning()
 end
 
 battimer = timer({timeout = 120})
-
 battimer:add_signal("timeout", bat_warning)
 battimer:start()
+
+
