@@ -3,7 +3,6 @@
 -- depends on vicious and may be ugly, but it works ;)
 -- written by Markus Fuchs 2012 <mail@mfuchs.org>
 -- Licensed under the GNU General Public License v2
--- known issues: complains when battery is charging
 ---------------------------------------------------------
 
 local helpers = require("vicious.helpers")
@@ -28,6 +27,10 @@ end
 
 local function get_bat_percentage()
 	local battery =  helpers.pathtotable("/sys/class/power_supply/BAT0")
+
+	if battery.status == "Charging\n" then
+		return 0
+	end
 
 	-- Get capacity information
 	if battery.charge_now then
