@@ -78,7 +78,7 @@ globalkeys = awful.util.table.join(
 
     -- custom hotkeys
     awful.key({},            "XF86ModeLock",   function () awful.util.spawn_with_shell("xlock -mode blank -bg black -fg green") end),
-    awful.key({},            "XF86Standby",   function () awful.util.spawn_with_shell("xsert dpms force off") end),
+    awful.key({},            "XF86Standby",   function () awful.util.spawn_with_shell("xset dpms force off") end),
     awful.key({},            "XF86Launch1",   function () awful.util.spawn_with_shell("urxvt") end),
     awful.key({},            "XF86SplitScreen", function () awful.util.spawn_with_shell("lxrandr") end),
     awful.key({}, "XF86Launch4", function () awful.util.spawn("sudo /usr/local/bin/bluetooth-toggle.sh") 
