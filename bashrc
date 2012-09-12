@@ -224,6 +224,8 @@ geoip () { lynx --dump "http://www.geoiptool.com/?IP=$1" | egrep --color 'City:|
 myip() {  lynx --dump http://checkip.dyndns.org | sed -e 's/Current IP Address://' -e 's/ //g' ;}
 # download files of specific type from a website; usage: wgetall pdf http://example.org
 wgetall () { wget -r -l1 -nd -Nc -A.$@ $@; }
+# test is site is down just for me
+isup() { curl -s http://www.isup.me/$1 | grep -o -E "http://$1</a></span>.*$" | sed -s "s/<\/a><\/span>//g" ; }
 
 # ssh tunnel for synergy server
 # usage: ssh-synergy user@host
