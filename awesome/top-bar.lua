@@ -39,6 +39,10 @@ volicon = widget ({ type = "textbox" })
 volicon.bg_image = image("/usr/share/awesome/themes/icons/zenburn/vol.png")
 volicon.bg_align = "middle"
 volicon.width = 8
+timeicon = widget ({ type = "textbox" })
+timeicon.bg_image = image("/usr/share/awesome/themes/icons/zenburn/time.png")
+timeicon.bg_align = "middle"
+timeicon.width = 8
 
 cpuinfo = widget ({ type = "textbox" })
 -- netdowninfo = widget ({ type = "textbox" })
@@ -50,6 +54,10 @@ volbuttons = awful.util.table.join(
 		awful.button({ }, 1, function() awful.util.spawn_with_shell("urxvt -name alsamixerfloat -e alsamixer", mouse.screen) end)
 		)
 volinfo:buttons(volbuttons)
+timebuttons = awful.util.table.join(
+		awful.button({ }, 1, function() awful.util.spawn("hamster-time-tracker", false, mouse.screen) end)
+		)
+timeicon:buttons(timebuttons)
 
 vicious.register(cpuinfo, vicious.widgets.cpu, "$2% / $3% / $4% / $5%")
 -- vicious.register(netdowninfo, vicious.widgets.net, "${wlan0 down_kb}", 3)
@@ -135,7 +143,7 @@ for s = 1, screen.count() do
             layout = awful.widget.layout.horizontal.leftright
         },
         mylayoutbox[s],
-        mytextclock,
+        spacer, timeicon, seperator, mytextclock,
         s == 1 and mysystray or nil,
 	seperator, volinfo,
 	seperator, tempinfo, spacer, tempicon,

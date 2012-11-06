@@ -40,7 +40,7 @@ export HISTCONTROL=ignoreboth
 # we want a big history
 export HISTSIZE=10000
 # ignore some lines
-export HISTIGNORE=l:history*:ls:ll:la:
+export HISTIGNORE=l:history*:ls:ll:la:tt:ttl:tta:tts
 # time stamps
 export HISTTIMEFORMAT="%F %H:%M "
 #save multi line cmds in one history entry
@@ -158,13 +158,14 @@ alias webshare='python2 -m SimpleHTTPServer'
 # netstat
 alias ns='netstat -panut'
 
+# hamster
+alias tt='hamster-cli'
+alias ttl='hamster-cli list'
+alias tta='hamster-cli start'
+alias tts='hamster-cli stop'
+
 # abbreviation for find
 f () { find . -iname "*$1*" ; }
-
-# vim as pager
-function - () {
-	/usr/share/vim/vim72/macros/less.sh $1
-}
 
 # alterntive for reset
 function c() { echo -ne "\033c"; }
@@ -201,22 +202,12 @@ extract () {
    fi
  }
 
- # Repeat n times command.
- function repeat()      
- {
-	 local i max
-	 max=$1; shift;
-	 for ((i=1; i <= max ; i++)); do  
-		 eval "$@";
-	 done
- }
-
 # a few calc funtions
 calc() { python -c "from math import *; print $1"; }
 dec2bin () { echo "ibase=10; obase=2; $1" | bc ;}
 bin2dec () { echo "ibase=2; obase=10; $1" | bc ;}
 dec2hex () { echo "ibase=10; obase=16; $1" | bc ;}
-hex2dec () { python -c "print int('$1', 16)" ;}
+hex2dec () { python2 -c "print int('$1', 16)" ;}
 hex2bin () { dec2bin $(hex2dec $1) ;}
 
 # functions concerning network stuff
@@ -278,11 +269,10 @@ function gg () {
 pronounce(){ wget -qO- $(wget -qO- "http://www.m-w.com/dictionary/$@" | grep 'return au' | sed -r "s|.*return au\('([^']*)', '([^'])[^']*'\).*|http://cougar.eb.com/soundc11/\2/\1|") | aplay -q; }
 
 # fun stuff
-function say () {
-	echo "$@" | txt2pho | mbrola /usr/share/mbrola/de6/de6 - - | aplay -r 22050 -f S16 2> /dev/null
-}
-
-sayshell () {  while true; do read lulz; say $lulz; done }
+#function say () {
+#	echo "$@" | txt2pho | mbrola /usr/share/mbrola/de6/de6 - - | aplay -r 22050 -f S16 2> /dev/null
+#}
+#sayshell () {  while true; do read lulz; say $lulz; done }
 
 #############################################################
 
