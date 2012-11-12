@@ -65,7 +65,7 @@ shopt -s dirspell
 # set a fancy prompt (non-color, unless we know we "want" color)
 # red user@host for root and green user@host else
 case "$TERM" in
-*xterm*|rxvt*|linux|*screen*)
+*xterm*|*rxvt*|linux|*screen*)
 	# if we are on a remote host change hostname color
 	if [ ! -z "$SSH_CLIENT" ]; 
 	then 
@@ -195,6 +195,7 @@ extract () {
            *.zip)       unzip $1       ;;
            *.Z)         uncompress $1  ;;
            *.7z)        7z x $1        ;;
+	   *.tar.xz)    tar Jxvf $1    ;;
            *)           echo "don't know how to extract '$1'..." ;;
        esac
    else
