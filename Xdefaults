@@ -19,6 +19,8 @@ URxvt.saveLines: 8192
 !!scroll on keypress but not new output
 URxvt.scrollTtyKeypress:true
 URxvt.scrollTtyOutput:  false
+URxvt*dynamicColors: on
+URxvt*loginShell: true
 
 URxvt*depth: 32
 URxvt*background: rgba:0000/0000/0000/cccc
