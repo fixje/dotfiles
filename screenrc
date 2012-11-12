@@ -9,6 +9,6 @@ caption always '%{= kg}[%L=%{+u b} %=%{-u W}%?%-Lw%?%45L>%{Y}(%n*%f %t)%?(%u)%?%
 # screens
 screen -t ROOT 0 sudo -s
 screen -t TOP 1 htop
-#screen -t mc 2 mc
+screen -t NET 2 wicd-curses
 screen -t SHELL 3 bash
 screen -t SHELL 4 bash
