@@ -18,5 +18,9 @@ alias linisync='unison -ui text jolokia'
 # starting Virtual Machines
 alias freebsd='VBoxManage startvm freebsd --type headless'
 alias win7='VBoxManage startvm Win7 --type sdl'
+alias gridvm='VBoxManage startvm GridCloud --type sdl'
 
 alias ssh-andy="rdesktop -u Markus -r sound:remote 192.168.0.20"
+
+SSH_AUTH_SOCK=`netstat -xl | grep -o '/run/user/1000/keyring-.*/ssh$'`
+[ -z "$SSH_AUTH_SOCK" ] || export SSH_AUTH_SOCK
