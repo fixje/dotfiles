@@ -1,0 +1,7 @@
+[Unit]
+Description=Awesome Window Manager
+After=display-setup.service
+#After=dbus.socket
+
+[Service]
+ExecStart=/usr/bin/awesome

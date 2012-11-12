@@ -1,0 +1,9 @@
+[Unit]
+Before=awesome.service
+
+[Service]
+ExecStart=/home/fixje/bin/display-setup.sh
+Type=oneshot
+
+[Install]
+WantedBy=default.target

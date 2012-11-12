@@ -1,0 +1,6 @@
+[Service]
+ExecStart=/home/fixje/hacks/notebooks/start.sh
+Type=forking
+
+[Install]
+WantedBy=default.target

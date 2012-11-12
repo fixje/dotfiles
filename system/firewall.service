@@ -1,0 +1,12 @@
+[Unit]
+Description=Firewall Script
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+Restart=no
+ExecStart=/usr/local/bin/firewall init
+ExecStop=/usr/local/bin/firewall full-open
+
+[Install]
+WantedBy=multi-user.target

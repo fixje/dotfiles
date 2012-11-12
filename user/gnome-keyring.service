@@ -1,0 +1,9 @@
+[Unit]
+Before=yeahconsole.service awesome.service
+
+[Service]
+ExecStart=/home/fixje/bin/start-gnome-keyring.sh
+Type=oneshot
+
+[Install]
+WantedBy=default.target

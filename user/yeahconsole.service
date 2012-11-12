@@ -1,0 +1,8 @@
+[Service]
+ExecStart=/usr/local/bin/yeah-transparent 
+After=display-setup.service
+Requires=display-setup.service
+Type=forking
+
+[Install]
+WantedBy=default.target

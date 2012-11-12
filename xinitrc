@@ -1,3 +1,11 @@
+# run stuff to fix permissions etc
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+  for f in /etc/X11/xinit/xinitrc.d/*; do
+    [ -x "$f" ] && . "$f"
+  done
+  unset f
+fi
+
 setxkbmap de -variant nodeadkeys
 xmodmap -e "clear lock"
 xmodmap ~/.Xmodmap
@@ -9,10 +17,6 @@ xinput --set-prop 12 "Device Accel Profile" 6
 # diable touchpad
 xinput set-int-prop "SynPS/2 Synaptics TouchPad" "Synaptics Off" 8 1
 
-wicd-gtk &
-
-/usr/local/bin/yeah-transparent &
-
 if [ -e /dev/input/js0 ]
 then
 	qjoypad &
@@ -21,6 +25,5 @@ fi
 # java hack for awesome
 wmname LG3D &
 
-/home/fixje/bin/display-setup.sh
-exec awesome
 #exec startfluxbox
+systemd --user

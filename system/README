@@ -1,0 +1,2 @@
+Those files are used for systemd system startup. X will be started
+by xlogin@username.service
