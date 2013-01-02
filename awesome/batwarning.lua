@@ -5,12 +5,13 @@
 -- Licensed under the GNU General Public License v2
 ---------------------------------------------------------
 
+local wibox = require("wibox")
 local helpers = require("vicious.helpers")
 
 -- store levels we have warned for
 batt_already_warned = 0
 -- text widget for battery
-battinfo_text = widget({ type = "textbox" })
+battinfo_text = wibox.widget.textbox()
 battinfo_text.align = "right"
 battinfo_text.text = ""
 
@@ -88,7 +89,7 @@ local function bat_warning()
 		if shutdown_timer == nil then
 			create_bottom_bar()
 			shutdown_timer = timer({timeout = 1})
-			shutdown_timer:add_signal("timeout", countdown_shutdown)
+			shutdown_timer:connect_signal("timeout", countdown_shutdown)
 			shutdown_timer:start()
 		end
 		for s = 1, screen.count() do
@@ -103,7 +104,7 @@ local function bat_warning()
 end
 
 battimer = timer({timeout = 120})
-battimer:add_signal("timeout", bat_warning)
+battimer:connect_signal("timeout", bat_warning)
 battimer:start()
 
 

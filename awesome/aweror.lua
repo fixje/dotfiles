@@ -13,7 +13,7 @@
 -- get our key bindings from separate ror.lua file
 require("ror")
 
-local awful=awful
+local awful= require("awful")
 local client=client
 local pairs=pairs
 local table=table

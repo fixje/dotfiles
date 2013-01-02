@@ -1,3 +1,5 @@
+local beautiful = require("beautiful")
+awful.rules = require("awful.rules")
 s = screen.count()
 
 -- {{{ Rules

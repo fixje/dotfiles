@@ -1,4 +1,6 @@
-mousefinder = awful.mouse.finder()
+local awful = awful
+local beautiful = require("beautiful")
+-- mousefinder = awful.mouse.finder()
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
@@ -63,7 +65,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore()),
-    awful.key({ modkey }, "q", function () mousefinder:find() end),
+    -- awful.key({ modkey }, "q", function () mousefinder:find() end),
 
     -- Prompt
     awful.key({ modkey }, "r",     function () mypromptbox[mouse.screen]:run() end),
@@ -77,10 +79,10 @@ globalkeys = awful.util.table.join(
               end),
 
     -- custom hotkeys
-    awful.key({},            "XF86ModeLock",   function () awful.util.spawn_with_shell("xlock -mode blank -bg black -fg green") end),
-    awful.key({},            "XF86Standby",   function () awful.util.spawn_with_shell("xset dpms force off") end),
-    awful.key({},            "XF86Launch1",   function () awful.util.spawn_with_shell("urxvt") end),
-    awful.key({},            "XF86SplitScreen", function () awful.util.spawn_with_shell("lxrandr") end),
+    awful.key({}, "XF86ModeLock",   function () awful.util.spawn_with_shell("xlock -mode blank -bg black -fg green") end),
+    awful.key({}, "XF86Standby",   function () awful.util.spawn_with_shell("xset dpms force off") end),
+    awful.key({}, "XF86Launch1",   function () awful.util.spawn_with_shell("urxvt") end),
+    awful.key({}, "XF86SplitScreen", function () awful.util.spawn_with_shell("lxrandr") end),
     awful.key({}, "XF86Launch4", function () awful.util.spawn("sudo /usr/local/bin/bluetooth-toggle.sh") 
 end),
     awful.key({}, "XF86Launch5", function () awful.util.spawn("/usr/local/bin/touchpad-toggle.sh") end),
@@ -122,7 +124,7 @@ globalkeys = awful.util.table.join(globalkeys, aweror.genkeys(modkey))
 
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
-    awful.key({ modkey, "Control" }, "c",      function (c) c:kill()                         end),
+    awful.key({ modkey, "Control" }, "c",      function (c) c:kill()                       end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),

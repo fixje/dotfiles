@@ -1,3 +1,5 @@
+local beautiful = require("beautiful")
+local awful = require("awful")
 require("freedesktop.utils")
 require("freedesktop.menu")
 
@@ -18,7 +20,7 @@ myawesomemenu = {
 menu_items = freedesktop.menu.new()
 table.insert(menu_items, { "awesome", myawesomemenu, beautiful.awesome_icon })
 table.insert(menu_items, { "open terminal", terminal, freedesktop.utils.lookup_icon({icon = 'terminal'}) })
-table.insert(menu_items, { "Shutdown", "sudo systemctl poweroff", freedesktop.utils.lookup_icon({ icon = 'gtk-quit' }) })
+table.insert(menu_items, { "Shutdown", "systemctl poweroff", freedesktop.utils.lookup_icon({ icon = 'gtk-quit' }) })
 
 mymainmenu = awful.menu.new({ items = menu_items, width = 200 })
 

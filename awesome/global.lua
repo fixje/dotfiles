@@ -1,3 +1,7 @@
+local awful = require("awful")
+local beautiful = require("beautiful")
+local gears = require("gears")
+
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
@@ -41,4 +45,8 @@ end
 
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/usr/share/awesome/themes/wombat/theme.lua")
-
+-- {{{ Wallpaper
+for s = 1, screen.count() do
+    gears.wallpaper.maximized("/usr/share/awesome/themes/wombat/background.jpg", s, true)
+end
+-- }}}
