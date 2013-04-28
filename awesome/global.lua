@@ -38,7 +38,7 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "1:net", "2:dev", "3:shell", "4:files", "5:media", "6:misc" }, s, layouts[1])
+    tags[s] = awful.tag({ "[1]", "[2]", "[3]", "[4]", "[5]", "[6]" }, s, layouts[1])
 end
 -- }}}
 
@@ -46,7 +46,7 @@ end
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/usr/share/awesome/themes/wombat/theme.lua")
 -- {{{ Wallpaper
-for s = 1, screen.count() do
-    gears.wallpaper.maximized("/usr/share/awesome/themes/wombat/background.jpg", s, true)
-end
+-- for s = 1, screen.count() do
+--    gears.wallpaper.maximized("/usr/share/awesome/themes/wombat/background.jpg", s, true)
+-- end
 -- }}}

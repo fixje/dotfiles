@@ -13,7 +13,7 @@ table5={
    ["F1"]={"firefox","Firefox"},
    ["F2"]={"pidgin","Pidgin"},
    ["F3"]={"eclipse","Eclipse"},
-   ["F4"]={"thunar","Thunar"},
+   ["F4"]={"dolphin","Dolphin"},
    ["F5"]={"clementine","Clementine"},
    ["F6"]={"google-chrome","Chrome"},
 }
