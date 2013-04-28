@@ -1,0 +1,5 @@
+urxvtclip
+---------
+clipboard features for urxvt. <C-v> to copy and <C-S-v> to paste.
+requires xclip
+copy to /usr/lib64/urxvt/perl/
