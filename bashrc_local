@@ -11,16 +11,11 @@ export DEVKITARM=/opt/devkitpro/devkit
 export PATH=${PATH}:${DEVKITARM}/bin
 
 
-# sync with jolokia
-alias linisync='unison -ui text jolokia'
-#if tested: alias autosync='unison -ui text -batch liniment &'
-
 # starting Virtual Machines
-alias freebsd='VBoxManage startvm freebsd --type headless'
-alias win7='VBoxManage startvm Win7 --type sdl'
-alias gridvm='VBoxManage startvm GridCloud --type sdl'
+alias openbsd='VBoxManage startvm freebsd --type headless'
+alias debvm='VBoxManage startvm debian-db01 --type headless'
+alias win8='VBoxManage startvm win8 --type gui'
+alias gridvm='VBoxManage startvm GridCloud --type gui'
 
-alias ssh-andy="rdesktop -u Markus -r sound:remote 192.168.0.20"
-
-SSH_AUTH_SOCK=`netstat -xl | grep -o '/run/user/1000/keyring-.*/ssh$'`
-[ -z "$SSH_AUTH_SOCK" ] || export SSH_AUTH_SOCK
+alias cm="cd ~/masterarbeit/"
+alias cms="cd ~/masterarbeit/src/"
