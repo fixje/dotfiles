@@ -322,7 +322,7 @@ export EDITOR='vim'
 #############################################################
 
 ## Arch Linux specific stuff
-export PACMAN=pacman-color
+export PACMAN=pacman
 alias pacman=$PACMAN
 
 if [ -f /usr/bin/pacman ]
@@ -331,7 +331,7 @@ then
 	alias pacs="$PACMAN -Ss"
 	alias pacup="sudo $PACMAN -Syu"
 	alias pacins="sudo $PACMAN -S"
-	alias pacrm="sudo $PACMAN -Rssu"
+	alias pacrm="sudo $PACMAN -Rsu"
 	alias aurs="yaourt -Ss"
 	alias aurup="sudo yaourt --aur -Syu"
 	alias aurins="yaourt -S"
