@@ -10,12 +10,6 @@ seperator:set_text(" | ")
 spacer = wibox.widget.textbox()
 spacer.width = 6
 
-
-
--- Create a systray
---mysystray = wibox.widget.systray()
-
-
 -- Icons and Widgets
 cpuicon = wibox.widget.imagebox()
 cpuicon:set_image("/usr/share/awesome/themes/icons/zenburn/cpu.png")
@@ -68,8 +62,6 @@ vicious.register(battinfo, vicious.widgets.bat, "$2%$1", 60, "BAT0")
 vicious.register(tempinfo, vicious.widgets.thermal, "$1°C", 5, "thermal_zone0")
 vicious.register(volinfo, vicious.widgets.volume, "$2 $1%", 1, "Master")
 
-
-
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
@@ -86,37 +78,37 @@ mytaglist.buttons = awful.util.table.join(
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
     awful.button({ }, 1, function (c)
-                 if c == client.focus then
-                c.minimized = true
+                if c == client.focus then
+			c.minimized = true
                 else
-                -- Without this, the following
-                -- :isvisible() makes no sense
-                c.minimized = false
+			-- Without this, the following
+			-- :isvisible() makes no sense
+			c.minimized = false
                 if not c:isvisible() then
-                awful.tag.viewonly(c:tags()[1])
+			awful.tag.viewonly(c:tags()[1])
                 end
-                -- This will also un-minimize
-                -- the client, if needed
-                client.focus = c
-                c:raise()
+			-- This will also un-minimize
+			-- the client, if needed
+			client.focus = c
+			c:raise()
                 end
                 end),
-                awful.button({ }, 3, function ()
-                             if instance then
-                            instance:hide()
-                            instance = nil
-                            else
-                            instance = awful.menu.clients({ width=250 })
-                                                          end
-                                                         end),
-                             awful.button({ }, 4, function ()
-                                          awful.client.focus.byidx(1)
-                                         if client.focus then client.focus:raise() end
-                                         end),
-                            awful.button({ }, 5, function ()
-                                         awful.client.focus.byidx(-1)
-                                        if client.focus then client.focus:raise() end
-                                        end))
+	awful.button({ }, 3, function ()
+		    if instance then
+			    instance:hide()
+			    instance = nil
+		    else
+			instance = awful.menu.clients({ width=250 })
+		    end
+		    end),
+		    awful.button({ }, 4, function ()
+				 awful.client.focus.byidx(1)
+				 if client.focus then client.focus:raise() end
+				 end),
+		    awful.button({ }, 5, function ()
+				 awful.client.focus.byidx(-1)
+				if client.focus then client.focus:raise() end
+				end))
         
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
@@ -159,7 +151,6 @@ for s = 1, screen.count() do
     right_layout:add(volinfo)
     right_layout:add(seperator)    
     right_layout:add(mytextclock)
-
 
     right_layout:add(mylayoutbox[s])
 
