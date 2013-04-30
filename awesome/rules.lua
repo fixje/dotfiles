@@ -15,8 +15,6 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { name = "alsamixer" },
       properties = { floating = true  } },
-    { rule_any = { name = { "plasma-desktop", "krunner" } },
-      properties = { focusable = false  } },
     { rule_any = { class = { "clementine", "Clementine" } },
       properties = { tag = tags[1][5] } },
     { rule = { class = "Firefox" },

@@ -53,6 +53,7 @@ globalkeys = awful.util.table.join(
     -- Standard program
     awful.key({ modkey,           }, "t", function () awful.util.spawn(terminal) end),
     awful.key({ modkey,           }, "e", function () awful.util.spawn("krunner") end),
+    awful.key({ modkey,           }, "g", function () awful.util.spawn("dolphin") end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
