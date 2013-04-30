@@ -63,6 +63,9 @@ set smartcase               " case insensitive search
 "" Spell checking
 set autoread
 
+"" Turn on omnicomplete
+set ofu=syntaxcomplete#Complete
+
 """"" Commands
 " F10 to quit without saving
 :map <F10> :q!<CR>
@@ -75,9 +78,10 @@ imap <c-a> <c-o>^
 " clipboard
 
 " ctrl+tab to switch buffer
-:map <C-tab> :bn<CR>
-:map <C-S-tab> :bp<CR>
-:map <F3> :ts<CR>       " jump to tag (like eclipse F3)
+map <C-tab> :bn<CR>
+map <C-S-tab> :bp<CR>
+map <F3> :ts<CR>
+imap <C-Space> <C-x><C-o>
 
 " move marked lines up and down
 nnoremap <A-j> :m .+1<CR>==
