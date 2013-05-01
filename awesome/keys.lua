@@ -2,6 +2,15 @@ local awful = awful
 local beautiful = require("beautiful")
 -- mousefinder = awful.mouse.finder()
 
+
+-- {{{ helper function for run or raise
+function ror_class(cmd, cls)
+    local matcher = function (c) return awful.rules.match(c, {class = cls}) end
+    awful.client.run_or_raise(cmd, matcher)
+end
+-- }}}
+
+
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
@@ -50,10 +59,17 @@ globalkeys = awful.util.table.join(
             end
         end),
 
-    -- Standard program
+    -- Applications
     awful.key({ modkey,           }, "t", function () awful.util.spawn(terminal) end),
     awful.key({ modkey,           }, "e", function () awful.util.spawn("krunner") end),
     awful.key({ modkey,           }, "g", function () awful.util.spawn("dolphin") end),
+    awful.key({ modkey, }, 'F1', function () ror_class("firefox", "Firefox") end),
+    awful.key({ modkey, }, 'F2', function () ror_class("pidgin", "Pidgin") end),
+    awful.key({ modkey, }, 'F3', function () ror_class("eclipse", "Eclipse") end),
+    awful.key({ modkey, }, 'F4', function () ror_class("appchooser", "Appchooser") end),
+    awful.key({ modkey, }, 'F5', function () ror_class("clementine", "Clementine") end),
+    awful.key({ modkey, }, 'F6', function () ror_class("google-chrome", "Chrome") end),
+
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
@@ -121,8 +137,6 @@ end),
     awful.key({modkey}, "e", revelation)
 )
 
--- generate and add the 'run or raise' key bindings to the globalkeys table
-globalkeys = awful.util.table.join(globalkeys, aweror.genkeys(modkey))
 
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
