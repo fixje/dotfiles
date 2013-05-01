@@ -35,21 +35,21 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-	--    awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
+    --    awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "s", function () awful.client.swap.byidx(  1)    end),
     awful.key({ modkey, "Shift"   }, "w", function () awful.client.swap.byidx( -1)    end),
     awful.key({ modkey, "Control" }, "s",
-	function () 
-		awful.screen.focus_relative( 1)
-		-- BUG: mouse finder animation does not appear on right spot mousefinder:find()
-	end),
+    function () 
+        awful.screen.focus_relative( 1)
+        -- BUG: mouse finder animation does not appear on right spot mousefinder:find()
+    end),
     awful.key({ modkey, "Control" }, "w",
-	function () 
-		awful.screen.focus_relative(-1)
-		-- BUG: mouse finder animation does not appear on right spot mousefinder:find()
-	end),
+    function () 
+        awful.screen.focus_relative(-1)
+        -- BUG: mouse finder animation does not appear on right spot mousefinder:find()
+    end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "Tab",
         function ()
@@ -107,32 +107,32 @@ end),
     awful.key({ }, "XF86AudioLowerVolume", function () 
                         awful.util.spawn("amixer -q sset Master 2dB-") 
                         local f = io.popen("amixer get Master | egrep \"Front Left: Playback\" | egrep -o \"[0-9]+%\"")
-			local fr = ""
-			for line in f:lines() do
-				fr = fr .. line .. "\n"
-			end
-			f:close()
-			-- naughty.notify({ text = "Master Volume: " .. fr .. "", timeout = 1})
+            local fr = ""
+            for line in f:lines() do
+                fr = fr .. line .. "\n"
+            end
+            f:close()
+            -- naughty.notify({ text = "Master Volume: " .. fr .. "", timeout = 1})
     end),
     awful.key({ }, "XF86AudioRaiseVolume", function () 
                         awful.util.spawn("amixer -q sset Master 2dB+") 
                         local f = io.popen("amixer get Master | egrep \"Front Left: Playback\" | egrep -o \"[0-9]+%\"")
-			local fr = ""
-			for line in f:lines() do
-				fr = fr .. line .. "\n"
-			end
-			f:close()
-			-- naughty.notify({ text = "Master Volume: " .. fr .. "", timeout = 1})
+            local fr = ""
+            for line in f:lines() do
+                fr = fr .. line .. "\n"
+            end
+            f:close()
+            -- naughty.notify({ text = "Master Volume: " .. fr .. "", timeout = 1})
     end),
     awful.key({ }, "XF86AudioMute", function () 
                         awful.util.spawn("amixer set Master toggle") 
                         local f = io.popen("amixer get Master | egrep \"Front Left: Playback\" | cut -d \" \" -f 9")
-			local fr = ""
-			for line in f:lines() do
-				fr = fr .. line .. "\n"
-			end
-			f:close()
-			-- naughty.notify({ text = "Toggled Sound: " .. fr .. "", timeout = 1})
+            local fr = ""
+            for line in f:lines() do
+                fr = fr .. line .. "\n"
+            end
+            f:close()
+            -- naughty.notify({ text = "Toggled Sound: " .. fr .. "", timeout = 1})
     end),
     awful.key({modkey}, "e", revelation)
 )
