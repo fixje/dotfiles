@@ -5,8 +5,6 @@ require("awful.autofocus")
 require("beautiful")
 -- Notification library
 require("naughty")
--- Run or Raise
-require("aweror")
 
 
 -- {{{ Error handling
