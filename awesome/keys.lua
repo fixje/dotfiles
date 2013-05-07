@@ -3,10 +3,32 @@ local beautiful = require("beautiful")
 -- mousefinder = awful.mouse.finder()
 
 
--- {{{ helper function for run or raise
+-- {{{ helper functions
 function ror_class(cmd, cls)
     local matcher = function (c) return awful.rules.match(c, {class = cls}) end
     awful.client.run_or_raise(cmd, matcher)
+end
+
+function lower_volume()
+    awful.util.spawn("amixer -q sset Master 2dB-") 
+    local f = io.popen("amixer get Master | egrep \"Front Left: Playback\" | egrep -o \"[0-9]+%\"")
+    local fr = ""
+    for line in f:lines() do
+        fr = fr .. line .. "\n"
+    end
+    f:close()
+    -- naughty.notify({ text = "Master Volume: " .. fr .. "", timeout = 1})
+end
+
+function raise_volume()
+    awful.util.spawn("amixer -q sset Master 2dB+") 
+    local f = io.popen("amixer get Master | egrep \"Front Left: Playback\" | egrep -o \"[0-9]+%\"")
+    local fr = ""
+    for line in f:lines() do
+        fr = fr .. line .. "\n"
+    end
+    f:close()
+    -- naughty.notify({ text = "Master Volume: " .. fr .. "", timeout = 1})
 end
 -- }}}
 
@@ -104,26 +126,10 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86Launch4", function () awful.util.spawn("sudo /usr/local/bin/bluetooth-toggle.sh") 
 end),
     awful.key({}, "XF86Launch5", function () awful.util.spawn("/usr/local/bin/touchpad-toggle.sh") end),
-    awful.key({ }, "XF86AudioLowerVolume", function () 
-                        awful.util.spawn("amixer -q sset Master 2dB-") 
-                        local f = io.popen("amixer get Master | egrep \"Front Left: Playback\" | egrep -o \"[0-9]+%\"")
-            local fr = ""
-            for line in f:lines() do
-                fr = fr .. line .. "\n"
-            end
-            f:close()
-            -- naughty.notify({ text = "Master Volume: " .. fr .. "", timeout = 1})
-    end),
-    awful.key({ }, "XF86AudioRaiseVolume", function () 
-                        awful.util.spawn("amixer -q sset Master 2dB+") 
-                        local f = io.popen("amixer get Master | egrep \"Front Left: Playback\" | egrep -o \"[0-9]+%\"")
-            local fr = ""
-            for line in f:lines() do
-                fr = fr .. line .. "\n"
-            end
-            f:close()
-            -- naughty.notify({ text = "Master Volume: " .. fr .. "", timeout = 1})
-    end),
+    awful.key({ }, "XF86AudioLowerVolume", function () lower_volume() end),
+    awful.key({ }, "XF86AudioRaiseVolume", function () raise_volume() end),
+    awful.key({ modkey }, "-", function () lower_volume() end),
+    awful.key({ modkey }, "+", function () raise_volume() end),
     awful.key({ }, "XF86AudioMute", function () 
                         awful.util.spawn("amixer set Master toggle") 
                         local f = io.popen("amixer get Master | egrep \"Front Left: Playback\" | cut -d \" \" -f 9")
@@ -133,8 +139,7 @@ end),
             end
             f:close()
             -- naughty.notify({ text = "Toggled Sound: " .. fr .. "", timeout = 1})
-    end),
-    awful.key({modkey}, "e", revelation)
+    end)
 )
 
 
@@ -143,7 +148,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "c",      function (c) c:kill()                       end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
+    awful.key({ modkey, "Control", "Shift" }, "w",      awful.client.movetoscreen                        ),
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",
