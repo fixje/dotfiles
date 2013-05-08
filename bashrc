@@ -1,13 +1,10 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+################################################################################
 #
 # Author: Markus Fuchs <mail att mfuchs d0tt org>
-# last modified 2010-10-18
 # depends mainly on: lynx, dircolors, lesspipe, bc,
-#		     vim
+#                    vim
 #
-
-## get the actual version of this file
-alias syncbashrc="cd ~ && wget http://mfuchs.org/stuff/bashrc && mv bashrc .bashrc && . .bashrc && cd -"
+################################################################################
 
 ## these are some color codes
 # regular colors
@@ -68,18 +65,18 @@ shopt -s dirspell
 # red user@host for root and green user@host else
 case "$TERM" in
 *xterm*|*rxvt*|linux|*screen*)
-	# if we are on a remote host change hostname color
-	if [ ! -z "$SSH_CLIENT" ]; 
-	then 
-		MYHOSTCOLOR='\[\033[01;33m\]'
-	fi
+    # if we are on a remote host change hostname color
+    if [ ! -z "$SSH_CLIENT" ]; 
+    then 
+        MYHOSTCOLOR='\[\033[01;33m\]'
+    fi
 
-	if [ $UID -eq 0 ]
-	then
-	   PS1="\[\033[01;36m\]------------------------------------------------------------------------\n\[\033[01;31m\]\u[${MYHOSTCOLOR}\h\[\033[01;31m\]]\[\033[01;34m\] \w \$\[\033[00m\] "
-	else
-	   PS1="\[\033[01;36m\]------------------------------------------------------------------------\n\[\033[01;32m\]\u[${MYHOSTCOLOR}\h\[\033[01;32m\]]\[\033[01;34m\] \w \$\[\033[00m\] "
-	fi
+    if [ $UID -eq 0 ]
+    then
+        PS1="\[\033[01;36m\]------------------------------------------------------------------------\n\[\033[01;31m\]\u[${MYHOSTCOLOR}\h\[\033[01;31m\]]\[\033[01;34m\] \w \$\[\033[00m\] "
+    else
+        PS1="\[\033[01;36m\]------------------------------------------------------------------------\n\[\033[01;32m\]\u[${MYHOSTCOLOR}\h\[\033[01;32m\]]\[\033[01;34m\] \w \$\[\033[00m\] "
+    fi
     ;;
 *)
     PS1='\u@\h \w \$ '
@@ -89,23 +86,23 @@ esac
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-	xterm*|rxvt*)
-		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
-		;;
-	*)
-		;;
+    xterm*|rxvt*)
+        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+        ;;
+    *)
+        ;;
 esac
 
 # set xterm title
 function xtitle()      # Adds some text in the terminal frame.
 {
-	case "$TERM" in
-		*term | rxvt*)
-			echo -n -e "\033]0;$*\007"
-			;;
-		*)  
-			;;
-	esac
+    case "$TERM" in
+        *term | rxvt*)
+            echo -n -e "\033]0;$*\007"
+            ;;
+        *)  
+            ;;
+    esac
 }
 
 # aliases that use xtitle
@@ -121,14 +118,14 @@ alias iftop='xtitle iftop on $HOSTNAME && sudo iftop'
 if [ "$TERM" != "dumb" ]; then
     if [ -f /bin/dircolors ]
     then
-	eval "`dircolors -b`"
+        eval "`dircolors -b`"
     fi
 
     # only on Linux
     if [ "$(uname -s)" = "Linux" ]
     then
-	alias ls='ls --color=always -h'
-	alias grep='grep --color'
+        alias ls='ls --color=always -h'
+        alias grep='grep --color'
     fi
 fi
 
@@ -144,9 +141,9 @@ alias sudo='sudo '
 
 # some little helpers
 alias j='jobs -l'
-alias which_extended='type -a'
+alias whichE='type -a'
 alias ..='cd ..'
-alias svi='sudo vi'
+alias svi='sudo vim'
 
 # automatically create parent folders
 alias mkdir='mkdir -p'
@@ -160,12 +157,6 @@ alias webshare='python2 -m SimpleHTTPServer'
 # netstat
 alias ns='netstat -panut'
 
-# hamster
-alias tt='hamster-cli'
-alias ttl='hamster-cli list'
-alias tta='hamster-cli start'
-alias tts='hamster-cli stop'
-
 # abbreviation for find
 f () { find . -iname "*$1*" ; }
 
@@ -174,12 +165,12 @@ function c() { echo -ne "\033c"; }
 
 # abbreviation for "ps aux | grep" with colors
 psgrep () {
-	ps aux | grep -v grep | grep --color $1
+    ps aux | grep -v grep | grep --color $1
 }
 
 # create a backup file
 bak () {
-	cp $1 ${1}.bak_$(date +%Y%m%d)
+    cp $1 ${1}.bak_$(date +%Y%m%d)
 }
 
 # extract various archive types 
@@ -197,7 +188,7 @@ extract () {
            *.zip)       unzip $1       ;;
            *.Z)         uncompress $1  ;;
            *.7z)        7z x $1        ;;
-	   *.tar.xz)    tar Jxvf $1    ;;
+           *.tar.xz)    tar Jxvf $1    ;;
            *)           echo "don't know how to extract '$1'..." ;;
        esac
    else
@@ -224,58 +215,52 @@ isup() { curl -s http://www.isup.me/$1 | grep -o -E "http://$1</a></span>.*$" | 
 # ssh tunnel for synergy server
 # usage: ssh-synergy user@host
 ssh-synergy () {
-	if [[ $(echo $1 | grep '@') != "" ]]
-	then
-		SUSER=$(echo $1 | cut -d '@' -f1)
-		SHOST=$(echo $1 | cut -d '@' -f2)
-		ssh -f -N -L 24800:${SHOST}:24800 $1 -l $SUSER && synergyc -f localhost
-	else
-		ssh -f -N -L 24800:${1}:24800 $1 && synergyc -f localhost
-	fi
+    if [[ $(echo $1 | grep '@') != "" ]]
+    then
+        SUSER=$(echo $1 | cut -d '@' -f1)
+        SHOST=$(echo $1 | cut -d '@' -f2)
+        ssh -f -N -L 24800:${SHOST}:24800 $1 -l $SUSER && synergyc -f localhost
+    else
+        ssh -f -N -L 24800:${1}:24800 $1 && synergyc -f localhost
+    fi
 }
 
 # wake up xbox and connect
 ssh-xbox () {
-	nc -z -w3 xboxkl.no-ip.org 333
-	if [ $? -eq 1 ]
-	then
-		echo "Waking up XBOX"
-		wakeonlan -i xboxkl.no-ip.org -f ~/.xbox.wol
-		sleep 50
-	fi
-	for i in $(seq 1 5)
-	do
-		nc -z -w3 xboxkl.no-ip.org 333
-		if [ $? -eq 1 ]
-		then
-			sleep 10
-			continue
-		else 
-			ssh xbox
-			break
-		fi
-		echo "Connection failed!"
-	done
+    nc -z -w3 xboxkl.no-ip.org 333
+    if [ $? -eq 1 ]
+    then
+        echo "Waking up XBOX"
+        wakeonlan -i xboxkl.no-ip.org -f ~/.xbox.wol
+        sleep 50
+    fi
+    for i in $(seq 1 5)
+    do
+        nc -z -w3 xboxkl.no-ip.org 333
+        if [ $? -eq 1 ]
+        then
+            sleep 10
+            continue
+        else 
+            ssh xbox
+            break
+        fi
+        echo "Connection failed!"
+    done
 }
 
 # google search and open in browser
 function gg () {
-	url=$(echo http://google.com/search?q=$(echo "$@" | sed s/\ /+/g))
-	if [[ "$DISPLAY" = "" ]]; then
-		$BROWSER "$url"
-	else
-		firefox "$url"
-	fi
+    url=$(echo http://google.com/search?q=$(echo "$@" | sed s/\ /+/g))
+    if [[ "$DISPLAY" = "" ]]; then
+        $BROWSER "$url"
+    else
+        firefox "$url"
+    fi
 }
 
 # pronounce with merriam-webster
 pronounce(){ wget -qO- $(wget -qO- "http://www.m-w.com/dictionary/$@" | grep 'return au' | sed -r "s|.*return au\('([^']*)', '([^'])[^']*'\).*|http://cougar.eb.com/soundc11/\2/\1|") | aplay -q; }
-
-# fun stuff
-#function say () {
-#	echo "$@" | txt2pho | mbrola /usr/share/mbrola/de6/de6 - - | aplay -r 22050 -f S16 2> /dev/null
-#}
-#sayshell () {  while true; do read lulz; say $lulz; done }
 
 #############################################################
 
@@ -283,9 +268,12 @@ pronounce(){ wget -qO- $(wget -qO- "http://www.m-w.com/dictionary/$@" | grep 're
 soffice () { command soffice "$@" 1> /dev/null & }
 firefox () { command firefox "$@" 1> /dev/null & }
 xpdf () { command xpdf "$@" 1> /dev/null & }
+okular () { command okular "$@" 1> /dev/null & }
 HandBrake () { command ghb "$@" 1> /dev/null & } 
 chrome () { command google-chrome "$@" 1> /dev/null & }
 gqview () { command gqview "$@" 1> /dev/null & }
+gwenview () { command gwenview "$@" 1> /dev/null & }
+gitk () { command gitk "$@" 1> /dev/null & }
 
 #############################################################
 
@@ -310,7 +298,7 @@ complete -cf man
 # enable lesspipe for syntax highlighting in less
 if [ -f /usr/bin/lesspipe.sh ]
 then
-	eval `lesspipe.sh`
+    eval `lesspipe.sh`
 fi
 
 #############################################################
@@ -319,27 +307,21 @@ fi
 # personal variable settings
 export EDITOR='vim'
 
-
 #############################################################
 #############################################################
-
-## Arch Linux specific stuff
-export PACMAN=pacman
-alias pacman=$PACMAN
 
 if [ -f /usr/bin/pacman ]
 then
+    alias pacs="$PACMAN -Ss"
+    alias pacup="sudo $PACMAN -Syu"
+    alias pacins="sudo $PACMAN -S"
+    alias pacrm="sudo $PACMAN -Rsu"
+    alias aurs="yaourt -Ss"
+    alias aurup="sudo yaourt --aur -Syu"
+    alias aurins="yaourt -S"
 
-	alias pacs="$PACMAN -Ss"
-	alias pacup="sudo $PACMAN -Syu"
-	alias pacins="sudo $PACMAN -S"
-	alias pacrm="sudo $PACMAN -Rsu"
-	alias aurs="yaourt -Ss"
-	alias aurup="sudo yaourt --aur -Syu"
-	alias aurins="yaourt -S"
-
-	# completion for pacman
-	complete -cf $PACMAN
+    # completion for pacman
+    complete -cf $PACMAN
 fi
 
 #############################################################
@@ -348,23 +330,11 @@ fi
 ## Debian specific stuff
 if [ -f /usr/bin/aptitude ]
 then
-	alias aptupd='sudo aptitude update'
-	alias aptupg='sudo aptitude full-upgrade'
-	alias apts='aptitude search'
-	alias aptall='sudo -s aptitude update && aptitude full-upgrade'
-	alias aptrm='sudo aptitude remove'
-	alias aptins='sudo aptitude install'
+    alias pacs='aptitude search'
+    alias pacup='sudo -s aptitude update && aptitude full-upgrade'
+    alias pacrm='sudo aptitude remove'
+    alias pacins='sudo aptitude install'
 fi
-
-# same for apt-get
-#if [ -f /usr/bin/apt-get ]
-#then
-#	alias aptupd='sudo apt-get update'
-#	alias aptupg='sudo apt-get upgrade'
-#	alias apts='apt-cache search'
-#	alias aptrm='sudo apt-get remove'
-#	alias aptins='sudo apt-get install'
-#fi
 
 #############################################################
 #############################################################
