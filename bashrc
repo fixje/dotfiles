@@ -45,6 +45,8 @@ export HISTIGNORE=l:history*:ls:ll:la:tt:ttl:tta:tts
 export HISTTIMEFORMAT="%F %H:%M "
 #save multi line cmds in one history entry
 shopt -s cmdhist
+# disable C-s C-q aka xon/xoff
+stty -ixon
 
 #############################################################
 
