@@ -23,9 +23,10 @@ let mapleader = ","
 au BufWritePost .vimrc so ~/.vimrc
 
 "" Colors
+set t_Co=256
 set background=dark
 syntax on
-" colorscheme solarized
+colorscheme desertEx
 
 "" Change the status line based on mode
 if version >= 700
@@ -35,16 +36,17 @@ endif
 
 """""" User Interface
 set autoindent
+set autoread                " spell checking
 set backspace=2
 set backupdir=~/.vim/swap
 set cursorline              " hilight current line
 set colorcolumn=80
-highlight ColorColumn ctermbg=4 guibg=LightGrey
+highlight ColorColumn ctermbg=7  guibg=LightGray
 set directory=~/.vim/swap   " Don't clutter my dirs up with swp and tmp files
 set hidden                  " allow to switch buffers without saving
 set laststatus=2            " always enable status bar
 set linebreak               " 
-set list                  " show tabs and spaces
+set list                    " show tabs and spaces
 set listchars=tab:>·,trail:·
 set mouse=a                 " let's do everything with the mouse
 set nu!                     " show line numbers
@@ -70,13 +72,11 @@ set incsearch               " search while typing
 set hlsearch                " hilight matches when searching
 set smartcase               " case insensitive search
 
-"" Spell checking
-set autoread
 
 "" Turn on omnicomplete
 set ofu=syntaxcomplete#Complete
 
-""""" Commands
+""""" Keyboard Commands
 map <C-s> <esc>:w<CR>
 imap <C-s> <esc>:w<CR>
 " Emacs-like beginning and end of line.
@@ -87,6 +87,7 @@ imap <c-a> <c-o>^
 
 " mappings for FuzzyFinder
 nnoremap <C-f> :FufBuffer<CR>
+
 " move marked lines up and down
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
@@ -95,27 +96,50 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
+" move around in windows easier
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+"" Leader Commands
 map <Leader>nh :nohlsearch<CR>
-map <Leader>vre :sp ~/.vimrc<CR>
-map <Leader>vrs :so $MYVIMRC<CR>
-map <Leader>cl :cclose<CR>
+map <Leader>vre :sp ~/.vimrc<CR>:set bufhidden=delete<CR>
+
+" quickfix window
+map <Leader>fc :cclose<CR>
+map <Leader>fo :copen<CR>
+map <Leader>fn :cn<CR>
+map <Leader>fp :cp<CR>
+map <Leader>ff :<C-u>exe "cc" . v:count1<CR>
+
+" tags
+map <Leader>tt :exe ":ptag ".expand("<cword>")<CR>
+map <Leader>ts :exe ":tag ".expand("<cword>")<CR>
+map <Leader>tb :pop<CR>
+
+" close preview window
+map <Leader>pc :pc<CR>
+
+" delete current buffer
 map <Leader>bd :bd<CR>
+
 " space around arithmetic operators and after comma
 nmap <Leader>ws :s/\([\+\-\*\/]\)/ \1 /eg<CR>:s/ + =/+=/eg<CR>:s/,\(\w\)/, \1/eg<CR>:nohlsearch<CR>
 
-""""" abbreviations
-" FIXME make snippets
-":iab TCP \ac{TCP}
-":iab PIF \ac{PIF}
-":iab ACK \ac{ACK}
-":iab RTT \ac{RTT}
+" git diff
+nmap <Leader>gd :new<CR>:read !git diff<CR>:set syntax=diff buftype=nofile bufhidden=delete noswapfile<CR>gg
+
+" autocomplete parenthesis, brackets and braces
+inoremap ( ()<Left>
+inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+inoremap [ []<Left>
+inoremap <expr> ]  strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
+inoremap { {}<Left>
+inoremap <expr> }  strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
 
 
+""""" Plugin Settings
 "" LaTeX Suite
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "latex"
