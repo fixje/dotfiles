@@ -95,6 +95,13 @@ inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
+" same for 7-bit terminal
+nnoremap j :m .+1<CR>==
+inoremap j <Esc>:m .+1<CR>==gi
+vnoremap j :m '>+1<CR>gv=gv
+inoremap k <Esc>:m .-2<CR>==gi
+nnoremap k :m .-2<CR>==
+vnoremap k :m '<-2<CR>gv=gv
 
 " move around in windows easier
 nnoremap <C-h> <C-w>h
