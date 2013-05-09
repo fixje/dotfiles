@@ -170,6 +170,11 @@ let g:python_folding = 0
 "" Ultisnips
 let g:UltiSnipsExpandTrigger="<C-tab>"
 let g:UltiSnipsListSnippets="<C-s-tab>"
+" HACK for terminal
+imap [27;5;9~ <C-tab>
+smap [27;5;9~ <C-tab>
+nmap [27;5;9~ <C-tab>
+xmap [27;5;9~ <C-tab>
 
 "" YouCompleteMe
 let g:ycm_confirm_extra_conf = 1

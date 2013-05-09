@@ -6,6 +6,7 @@ XTerm*foreground: grey
 !! copy-paste
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.iso14755: False
+URxvt.keysym.Control-Tab: \033[27;5;9~
 URxvt.perl-ext-common: default,matcher,urxvtclip,font-size
 URxvt.urlLauncher: /usr/bin/firefox
 URxvt.keysym.Control-0x2b: perl:font-size:increase
