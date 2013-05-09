@@ -4,6 +4,7 @@
 "    - Latex Suite
 "    - You Complete Me
 "    - python-mode
+"    - vim-ipython
 "    - ultisnips
 "    - NERDCommenter
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -43,6 +44,7 @@ set cursorline              " hilight current line
 set colorcolumn=80
 highlight ColorColumn ctermbg=7  guibg=LightGray
 set directory=~/.vim/swap   " Don't clutter my dirs up with swp and tmp files
+set guioptions-=T           " Disallows gui toolbar
 set hidden                  " allow to switch buffers without saving
 set laststatus=2            " always enable status bar
 set linebreak               " 
@@ -177,5 +179,16 @@ nmap [27;5;9~ <C-tab>
 xmap [27;5;9~ <C-tab>
 
 "" YouCompleteMe
-let g:ycm_confirm_extra_conf = 1
+let g:ycm_confirm_extra_conf = 0
 let g:ycm_key_list_previous_completion=['<Up>']
+
+"" vim-ipython
+let g:ipy_perform_mappings = 0
+nmap <silent> <Leader>s :py if update_subchannel_msgs(force=True): echo("vim-ipython shell updated",'Operator')<CR>
+nmap <silent> <C-y> :python run_this_file()<CR>
+nmap <silent> <C-x> :python run_this_line()<CR>
+imap <silent> <C-x> <C-O>:python run_this_line()<CR>
+nmap <silent> <M-x> :python dedent_run_this_line()<CR>
+nmap <silent> x :python dedent_run_this_line()<CR>
+vmap <silent> <C-x> :python run_these_lines()<CR>
+vmap <silent> x :python dedent_run_these_lines()<CR>
