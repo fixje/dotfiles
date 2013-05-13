@@ -28,6 +28,11 @@ set t_Co=256
 set background=dark
 syntax on
 colorscheme desertEx
+" highlight TODO and FIXME in every filetype
+highlight Todo ctermbg=yellow guibg=yellow ctermfg=red guifg=red term=bold gui=bold
+highlight Fixme ctermbg=red guibg=red ctermfg=yellow guifg=yellow term=bold gui=bold
+match Todo /TODO:*/
+match Fixme /FIXME:*/
 
 "" Change the status line based on mode
 if version >= 700
@@ -39,7 +44,8 @@ endif
 set autoindent
 set autoread                " spell checking
 set backspace=2
-set backupdir=~/.vim/swap
+set nobackup
+set nowritebackup
 set cursorline              " hilight current line
 set colorcolumn=80
 highlight ColorColumn ctermbg=7  guibg=LightGray
@@ -78,9 +84,15 @@ set smartcase               " case insensitive search
 "" Turn on omnicomplete
 set ofu=syntaxcomplete#Complete
 
+"" Let's learn it the hard way
+noremap <Left> <nop>
+noremap <Right> <nop>
+noremap <Down> <nop>
+noremap <Up> <nop>
+
 """"" Keyboard Commands
-map <C-s> <esc>:w<CR>
 imap <C-s> <esc>:w<CR>
+map <C-s> <esc>:w<CR>
 " Emacs-like beginning and end of line.
 imap <c-e> <c-o>$
 imap <c-a> <c-o>^
@@ -98,12 +110,13 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 " same for 7-bit terminal
-nnoremap j :m .+1<CR>==
-inoremap j <Esc>:m .+1<CR>==gi
-vnoremap j :m '>+1<CR>gv=gv
-inoremap k <Esc>:m .-2<CR>==gi
-nnoremap k :m .-2<CR>==
-vnoremap k :m '<-2<CR>gv=gv
+"" bad idea as it maps Esc!
+"nnoremap j :m .+1<CR>==
+"inoremap j <Esc>:m .+1<CR>==gi
+"vnoremap j :m '>+1<CR>gv=gv
+"inoremap k <Esc>:m .-2<CR>==gi
+"nnoremap k :m .-2<CR>==
+"vnoremap k :m '<-2<CR>gv=gv
 
 " move around in windows easier
 nnoremap <C-h> <C-w>h
@@ -184,6 +197,8 @@ let g:ycm_key_list_previous_completion=['<Up>']
 
 "" vim-ipython
 let g:ipy_perform_mappings = 0
+" function cannot be too complex ;)
+let g:pymode_lint_mccabe_complexity = 100
 nmap <silent> <Leader>s :py if update_subchannel_msgs(force=True): echo("vim-ipython shell updated",'Operator')<CR>
 nmap <silent> <C-y> :python run_this_file()<CR>
 nmap <silent> <C-x> :python run_this_line()<CR>
@@ -192,3 +207,7 @@ nmap <silent> <M-x> :python dedent_run_this_line()<CR>
 nmap <silent> x :python dedent_run_this_line()<CR>
 vmap <silent> <C-x> :python run_these_lines()<CR>
 vmap <silent> x :python dedent_run_these_lines()<CR>
+
+" reload firefox current tab
+map <Leader>r :silent execute "!/home/fixje/hacks/firefox-remote-reload.sh &> /dev/null &"<CR> :redraw!<CR>
+au BufWritePost *.html silent execute "!/home/fixje/hacks/firefox-remote-reload.sh &> /dev/null &"
