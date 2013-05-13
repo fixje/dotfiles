@@ -312,16 +312,16 @@ export EDITOR='vim'
 
 if [ -f /usr/bin/pacman ]
 then
-    alias pacs="$PACMAN -Ss"
-    alias pacup="sudo $PACMAN -Syu"
-    alias pacins="sudo $PACMAN -S"
-    alias pacrm="sudo $PACMAN -Rsu"
+    alias pacs="pacman -Ss"
+    alias pacup="sudo pacman -Syu"
+    alias pacins="sudo pacman -S"
+    alias pacrm="sudo pacman -Rsu"
     alias aurs="yaourt -Ss"
     alias aurup="sudo yaourt --aur -Syu"
     alias aurins="yaourt -S"
 
     # completion for pacman
-    complete -cf $PACMAN
+    complete -cf pacman
 fi
 
 #############################################################
