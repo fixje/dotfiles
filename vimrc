@@ -93,6 +93,7 @@ noremap <Up> <nop>
 """"" Keyboard Commands
 imap <C-s> <esc>:w<CR>
 map <C-s> <esc>:w<CR>
+noremap YY :qa!<CR>
 " Emacs-like beginning and end of line.
 imap <c-e> <c-o>$
 imap <c-a> <c-o>^

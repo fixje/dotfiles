@@ -262,6 +262,12 @@ function gg () {
 # pronounce with merriam-webster
 pronounce(){ wget -qO- $(wget -qO- "http://www.m-w.com/dictionary/$@" | grep 'return au' | sed -r "s|.*return au\('([^']*)', '([^'])[^']*'\).*|http://cougar.eb.com/soundc11/\2/\1|") | aplay -q; }
 
+# view man pages in vim
+function vman {
+  /usr/bin/man $* | /usr/bin/col -bp | /usr/bin/iconv -c | \
+  /usr/bin/vim -R -c "set ft=man nomod nolist so=999 ts=8 wrap\
+  titlestring=man\ $1" -c "let @f = 'ggVGgqgg'" -
+}
 #############################################################
 
 ## Run automatically in background
