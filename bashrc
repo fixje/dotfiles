@@ -170,7 +170,7 @@ psgrep () {
 
 # create a backup file
 bak () {
-    cp $1 ${1}.bak_$(date +%Y%m%d)
+    cp -a $1 ${1}.bak_$(date +%Y%m%d)
 }
 
 # extract various archive types 
