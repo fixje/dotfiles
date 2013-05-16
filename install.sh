@@ -19,9 +19,11 @@ ln -si ${CDIR}/vim ${HOME}/.vim
 
 ln -si ${CDIR}/bashrc ${HOME}/.bashrc
 touch ${HOME}/.bashrc_local
+ln -si ${CDIR}/gitconfig ${HOME}/.gitconfig
 ln -si ${CDIR}/gvimrc ${HOME}/.gvimrc
 ln -si ${CDIR}/inputrc ${HOME}/.inputrc
 ln -si ${CDIR}/screenrc ${HOME}/.screenrc
+ln -si ${CDIR}/vimperatorrc ${HOME}/.vimperatorrc
 ln -si ${CDIR}/vimrc ${HOME}/.vimrc
 ln -si ${CDIR}/Xdefaults ${HOME}/.Xdefaults
 ln -si ${CDIR}/Xmodmap ${HOME}/.Xmodmap

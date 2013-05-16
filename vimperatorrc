@@ -1,0 +1,5 @@
+set hintchars="asdfgqwer"
+
+:noremap <C-n> :winopen<CR>
+:noremap <C-f> /
+:inoremap <C-a> <Ins><C-a><Ins>

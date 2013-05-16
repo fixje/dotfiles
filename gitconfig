@@ -1,0 +1,20 @@
+[user]
+    name = Markus Fuchs
+    email = mfuchs13@gmail.com
+    signingkey = mail@mfuchs.org
+[alias]
+    co = checkout
+    count = !git shortlog -sn
+    ignore = !git update-index --assume-unchanged
+    unignore = !git update-index --no-assume-unchanged
+    ignored = !git ls-files -v | grep ^[a-z] 
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    ui = true
+[core]
+    excludesfile = ~/.gitignore
+    editor = vim
+[push]
+    default = matching
