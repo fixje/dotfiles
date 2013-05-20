@@ -128,6 +128,7 @@ nnoremap <C-l> <C-w>l
 "" Leader Commands
 map <Leader>nh :nohlsearch<CR>
 map <Leader>vre :sp ~/.vimrc<CR>:set bufhidden=delete<CR>
+map <Leader>cd :lcd %:h<CR>
 
 " quickfix window
 map <Leader>fc :cclose<CR>

@@ -87,7 +87,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "g", function () awful.util.spawn("dolphin") end),
     awful.key({ modkey, }, 'F1', function () ror_class("firefox", "Firefox") end),
     awful.key({ modkey, }, 'F2', function () ror_class("pidgin", "Pidgin") end),
-    awful.key({ modkey, }, 'F3', function () ror_class("eclipse", "Eclipse") end),
+    awful.key({ modkey, }, 'F3', function () ror_class("gvim", "Gvim") end),
     awful.key({ modkey, }, 'F4', function () ror_class("appchooser", "Appchooser") end),
     awful.key({ modkey, }, 'F5', function () ror_class("clementine", "Clementine") end),
     awful.key({ modkey, }, 'F6', function () ror_class("google-chrome", "Google-chrome") end),

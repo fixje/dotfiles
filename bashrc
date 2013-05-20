@@ -154,6 +154,9 @@ mkcd () { mkdir -p $1 && cd $1 ; }
 # share current dir via http:8000
 alias webshare='python2 -m SimpleHTTPServer'
 
+# gvim one session
+alias g='gvim --remote-silent'
+
 # netstat
 alias ns='netstat -panut'
 
