@@ -1,31 +1,13 @@
 ################################################################################
 #
 # Author: Markus Fuchs <mail att mfuchs d0tt org>
-# depends mainly on: lynx, dircolors, lesspipe, bc,
-#                    vim
+#
+# Thou shalt never forget this:
+#   $ foo bar 1234| oO(Damn forgot bazz!) =>
+#   <C-u> =>  $ | => $ bazz|<CR> $| <C-y> =>
+#   $ foo bar 1234|
 #
 ################################################################################
-
-## these are some color codes
-# regular colors
-#local K="\[\033[0;30m\]"    # black
-#local R="\[\033[0;31m\]"    # red
-#local G="\[\033[0;32m\]"    # green
-#local Y="\[\033[0;33m\]"    # yellow
-#local B="\[\033[0;34m\]"    # blue
-#local M="\[\033[0;35m\]"    # magenta
-#local C="\[\033[0;36m\]"    # cyan
-#local W="\[\033[0;37m\]"    # white
-
-# emphasized (bolded) colors
-#local EMK="\[\033[1;30m\]"
-#local EMR="\[\033[1;31m\]"
-#local EMG="\[\033[1;32m\]"
-#local EMY="\[\033[1;33m\]"
-#local EMB="\[\033[1;34m\]"
-#local EMM="\[\033[1;35m\]"
-#local EMC="\[\033[1;36m\]"
-#local EMW="\[\033[1;37m\]"
 
 # If not running interactively, don't do anything:
 [ -z "$PS1" ] && return
@@ -45,7 +27,7 @@ shopt -s cmdhist
 # disable C-s C-q aka xon/xoff
 stty -ixon
 
-#############################################################
+###############################################################################
 
 ## Window settings and prompt
 # check the window size after each command and, if necessary,
@@ -61,28 +43,21 @@ shopt -s dirspell
 #shopt -s extglob
 #shopt -s globstar
 
-# set a fancy prompt (non-color, unless we know we "want" color)
+### set a fancy prompt
+# if we are on a remote host change hostname color
+if [ ! -z "$SSH_CLIENT" ]; 
+then 
+    MYHOSTCOLOR='\[\033[01;33m\]'
+fi
 # red user@host for root and green user@host else
-case "$TERM" in
-*xterm*|*rxvt*|linux|*screen*)
-    # if we are on a remote host change hostname color
-    if [ ! -z "$SSH_CLIENT" ]; 
-    then 
-        MYHOSTCOLOR='\[\033[01;33m\]'
-    fi
+if [ $UID -eq 0 ]
+then
+    PS1="\[\033[01;36m\]------------------------------------------------------------------------\n\[\033[01;31m\]\u[${MYHOSTCOLOR}\h\[\033[01;31m\]]\[\033[01;34m\] \w \$\[\033[00m\] "
+else
+    PS1="\[\033[01;36m\]------------------------------------------------------------------------\n\[\033[01;32m\]\u[${MYHOSTCOLOR}\h\[\033[01;32m\]]\[\033[01;34m\] \w \$\[\033[00m\] "
+fi
 
-    if [ $UID -eq 0 ]
-    then
-        PS1="\[\033[01;36m\]------------------------------------------------------------------------\n\[\033[01;31m\]\u[${MYHOSTCOLOR}\h\[\033[01;31m\]]\[\033[01;34m\] \w \$\[\033[00m\] "
-    else
-        PS1="\[\033[01;36m\]------------------------------------------------------------------------\n\[\033[01;32m\]\u[${MYHOSTCOLOR}\h\[\033[01;32m\]]\[\033[01;34m\] \w \$\[\033[00m\] "
-    fi
-    ;;
-*)
-    PS1='\u@\h \w \$ '
-    ;;
-esac
-
+###############################################################################
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -111,7 +86,8 @@ alias htop='xtitle htop for ${USER}@${HOSTNAME} && htop'
 alias iotop='xtitle iotop for ${USER}@${HOSTNAME} && iotop'
 alias iftop='xtitle iftop on $HOSTNAME && sudo iftop'
 
-#############################################################
+###############################################################################
+###############################################################################
 
 ## Aliases and self-defined functions
 # enable color support of ls and also add handy aliases
@@ -143,7 +119,7 @@ alias sudo='sudo '
 alias j='jobs -l'
 alias whichE='type -a'
 alias ..='cd ..'
-alias svi='sudo vim'
+alias svi='sudoedit'
 
 # automatically create parent folders
 alias mkdir='mkdir -p'
@@ -161,6 +137,7 @@ alias g='gvim --remote-silent'
 alias gd='git diff'
 alias gdt='git difftool'
 alias ga='git add'
+alias gst='git status'
 
 # netstat
 alias ns='netstat -panut'
@@ -234,28 +211,28 @@ ssh-synergy () {
 }
 
 # wake up xbox and connect
-ssh-xbox () {
-    nc -z -w3 xboxkl.no-ip.org 333
-    if [ $? -eq 1 ]
-    then
-        echo "Waking up XBOX"
-        wakeonlan -i xboxkl.no-ip.org -f ~/.xbox.wol
-        sleep 50
-    fi
-    for i in $(seq 1 5)
-    do
-        nc -z -w3 xboxkl.no-ip.org 333
-        if [ $? -eq 1 ]
-        then
-            sleep 10
-            continue
-        else 
-            ssh xbox
-            break
-        fi
-        echo "Connection failed!"
-    done
-}
+#ssh-xbox () {
+#    nc -z -w3 xboxkl.no-ip.org 333
+#    if [ $? -eq 1 ]
+#    then
+#        echo "Waking up XBOX"
+#        wakeonlan -i xboxkl.no-ip.org -f ~/.xbox.wol
+#        sleep 50
+#    fi
+#    for i in $(seq 1 5)
+#    do
+#        nc -z -w3 xboxkl.no-ip.org 333
+#        if [ $? -eq 1 ]
+#        then
+#            sleep 10
+#            continue
+#        else 
+#            ssh xbox
+#            break
+#        fi
+#        echo "Connection failed!"
+#    done
+#}
 
 # google search and open in browser
 function gg () {
@@ -267,16 +244,14 @@ function gg () {
     fi
 }
 
-# pronounce with merriam-webster
-pronounce(){ wget -qO- $(wget -qO- "http://www.m-w.com/dictionary/$@" | grep 'return au' | sed -r "s|.*return au\('([^']*)', '([^'])[^']*'\).*|http://cougar.eb.com/soundc11/\2/\1|") | aplay -q; }
-
 # view man pages in vim
 function vman {
   /usr/bin/man $* | /usr/bin/col -bp | /usr/bin/iconv -c | \
   /usr/bin/vim -R -c "set ft=man nomod nolist so=999 ts=8 wrap\
   titlestring=man\ $1" -c "let @f = 'ggVGgqgg'" -
 }
-#############################################################
+
+###############################################################################
 
 ## Run automatically in background
 soffice () { command soffice "$@" 1> /dev/null & }
@@ -289,7 +264,7 @@ gqview () { command gqview "$@" 1> /dev/null & }
 gwenview () { command gwenview "$@" 1> /dev/null & }
 gitk () { command gitk "$@" 1> /dev/null & }
 
-#############################################################
+###############################################################################
 
 ## Completion
 # enable programmable completion features (you don't need to enable
@@ -306,7 +281,7 @@ shopt -s no_empty_cmd_completion
 complete -cf sudo
 complete -cf man
 
-#############################################################
+###############################################################################
 
 ## Nifty features
 # enable lesspipe for syntax highlighting in less
@@ -315,14 +290,13 @@ then
     eval `lesspipe.sh`
 fi
 
-#############################################################
+###############################################################################
 
 ## Environment Variables
-# personal variable settings
 export EDITOR='vim'
 
-#############################################################
-#############################################################
+###############################################################################
+###############################################################################
 
 if [ -f /usr/bin/pacman ]
 then
@@ -338,8 +312,8 @@ then
     complete -cf pacman
 fi
 
-#############################################################
-#############################################################
+###############################################################################
+###############################################################################
 
 ## Debian specific stuff
 if [ -f /usr/bin/aptitude ]
@@ -350,11 +324,10 @@ then
     alias pacins='sudo aptitude install'
 fi
 
-#############################################################
-#############################################################
-#############################################################
-
+###############################################################################
+###############################################################################
 ## Machine specific stuff
+if [ -f ~/.bashrc_local ]
+then
 . ~/.bashrc_local
-
-#EOF
+fi
