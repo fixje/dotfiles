@@ -16,5 +16,10 @@
 [core]
     excludesfile = ~/.gitignore
     editor = vim
+[diff]
+    tool = vimdiff
+    guitool = gvimdiff
+[difftool]
+    prompt = False
 [push]
     default = matching

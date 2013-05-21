@@ -157,6 +157,11 @@ alias webshare='python2 -m SimpleHTTPServer'
 # gvim one session
 alias g='gvim --remote-silent'
 
+# git aliases
+alias gd='git diff'
+alias gdt='git difftool'
+alias ga='git add'
+
 # netstat
 alias ns='netstat -panut'
 
