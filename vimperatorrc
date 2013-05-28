@@ -1,5 +1,25 @@
 set hintchars="asdfgqwer"
+set tabnumbers
 
-:noremap <C-n> :winopen<CR>
-:noremap <C-f> /
-:inoremap <C-a> <Ins><C-a><Ins>
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+" history
+map < H
+map > L
+
+imap <C-t> <Esc><C-t>
+imap <C-w> <Esc><C-w>
+
+" Style
+"" See http://bbs.archlinux.org/viewtopic.php?id=69123
+"" See http://github.com/VoQn/vimperator-colorscheme/raw/e13afec1be5ec1c9de775d0e2a464862f8d3a453/colors/default.vimp
+hi CompItem  font-size: 12px;
+hi CompTitle color: magenta; font-weight: bold; font-size: 12px;
+
+noremap <C-n> :winopen<CR>
+noremap <C-f> /
+inoremap <C-f> /
+inoremap <C-a> <Ins><C-a><Ins>
