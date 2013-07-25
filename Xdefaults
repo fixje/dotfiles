@@ -65,6 +65,6 @@ URxvt.color15: #8a8a8a
 yeahconsole*term:urxvt
 yeahconsole*aniDelay:0
 yeahconsole*stepSize:5
-yeahconsole*consoleHeight:30
+yeahconsole*consoleHeight:54
 yeahconsole*toggleKey:None+XF86LaunchA
-yeahconsole*screenWidth:1152
+yeahconsole*screenWidth:1366
