@@ -120,6 +120,8 @@ alias j='jobs -l'
 alias whichE='type -a'
 alias ..='cd ..'
 alias svi='sudoedit'
+alias pd="pushd"
+alias pod="popd"
 
 # automatically create parent folders
 alias mkdir='mkdir -p'
