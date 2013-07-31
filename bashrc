@@ -47,14 +47,29 @@ shopt -s dirspell
 # if we are on a remote host change hostname color
 if [ ! -z "$SSH_CLIENT" ]; 
 then 
-    MYHOSTCOLOR='\[\033[01;33m\]'
+    MYHOST='\[\033[01;33m\][\h]'
+else
+    MYHOST='[\h]'
 fi
+## timer for all commands run
+function timer_start {
+  timer=${timer:-$SECONDS}
+}
+function timer_stop {
+  timer_show=$(($SECONDS - $timer))
+  echo -ne "\033[01;30m-[last: ${timer_show}s]->\033[01;36m------------------------------------------------------------\n"
+  unset timer
+}
+
+trap 'timer_start' DEBUG
+PROMPT_COMMAND=timer_stop
+
 # red user@host for root and green user@host else
 if [ $UID -eq 0 ]
 then
-    PS1="\[\033[01;36m\]------------------------------------------------------------------------\n\[\033[01;31m\]\u[${MYHOSTCOLOR}\h\[\033[01;31m\]]\[\033[01;34m\] \w \$\[\033[00m\] "
+    PS1="\[\033[01;31m\]\u[${MYHOST}\[\033[01;31m\]]\[\033[01;34m\] \w \$\[\033[00m\] "
 else
-    PS1="\[\033[01;36m\]------------------------------------------------------------------------\n\[\033[01;32m\]\u[${MYHOSTCOLOR}\h\[\033[01;32m\]]\[\033[01;34m\] \w \$\[\033[00m\] "
+    PS1="\[\033[01;32m\]\u${MYHOST}\[\033[01;32m\]\[\033[01;34m\] \w \$\[\033[00m\] "
 fi
 
 ###############################################################################
@@ -62,7 +77,7 @@ fi
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
     xterm*|rxvt*)
-        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+        #PROMPT_COMMAND=$PROMPT_COMMAND'; echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
         ;;
     *)
         ;;
