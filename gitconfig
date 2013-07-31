@@ -8,7 +8,7 @@
     ignore = !git update-index --assume-unchanged
     unignore = !git update-index --no-assume-unchanged
     ignored = !git ls-files -v | grep ^[a-z] 
-    notpushed = !git log --branches --not --remotes
+    np = !git log --branches --not --remotes
 [color]
     diff = auto
     status = auto
