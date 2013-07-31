@@ -57,7 +57,7 @@ function timer_start {
 }
 function timer_stop {
   timer_show=$(($SECONDS - $timer))
-  echo -ne "\033[01;30m-[last: ${timer_show}s]->\033[01;36m------------------------------------------------------------\n"
+  echo -ne "\033[01;36m------------------------------------------------------------\033[01;30m-[last: ${timer_show}s]->\n"
   unset timer
 }
 
@@ -73,15 +73,6 @@ else
 fi
 
 ###############################################################################
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-    xterm*|rxvt*)
-        #PROMPT_COMMAND=$PROMPT_COMMAND'; echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
-        ;;
-    *)
-        ;;
-esac
 
 # set xterm title
 function xtitle()      # Adds some text in the terminal frame.
@@ -124,7 +115,6 @@ fi
 alias ll='ls -l --group-directories-first'
 alias la='ls -A'
 alias l='ls -CF --group-directories-first'
-alias lx='ls -lXB'
 alias lll='ls -l --group-directories-first | less'
 
 # trick: keep all functions and aliases using sudo
@@ -198,14 +188,6 @@ extract () {
    fi
  }
 
-# a few calc funtions
-calc() { python -c "from math import *; print $1"; }
-dec2bin () { echo "ibase=10; obase=2; $1" | bc ;}
-bin2dec () { echo "ibase=2; obase=10; $1" | bc ;}
-dec2hex () { echo "ibase=10; obase=16; $1" | bc ;}
-hex2dec () { python2 -c "print int('$1', 16)" ;}
-hex2bin () { dec2bin $(hex2dec $1) ;}
-
 # functions concerning network stuff
 geoip () { lynx --dump "http://www.geoiptool.com/?IP=$1" | egrep --color 'City:|IP Address:|Country:' ;}
 myip() {  lynx --dump http://checkip.dyndns.org | sed -e 's/Current IP Address://' -e 's/ //g' ;}
@@ -226,30 +208,6 @@ ssh-synergy () {
         ssh -f -N -L 24800:${1}:24800 $1 && synergyc -f localhost
     fi
 }
-
-# wake up xbox and connect
-#ssh-xbox () {
-#    nc -z -w3 xboxkl.no-ip.org 333
-#    if [ $? -eq 1 ]
-#    then
-#        echo "Waking up XBOX"
-#        wakeonlan -i xboxkl.no-ip.org -f ~/.xbox.wol
-#        sleep 50
-#    fi
-#    for i in $(seq 1 5)
-#    do
-#        nc -z -w3 xboxkl.no-ip.org 333
-#        if [ $? -eq 1 ]
-#        then
-#            sleep 10
-#            continue
-#        else 
-#            ssh xbox
-#            break
-#        fi
-#        echo "Connection failed!"
-#    done
-#}
 
 # google search and open in browser
 function gg () {
