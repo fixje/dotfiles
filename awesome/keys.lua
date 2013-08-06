@@ -119,7 +119,7 @@ globalkeys = awful.util.table.join(
               end),
 
     -- custom hotkeys
-    awful.key({}, "XF86ModeLock",   function () awful.util.spawn_with_shell("xlock -mode blank -bg black -fg green") end),
+    awful.key({}, "XF86ModeLock",   function () awful.util.spawn_with_shell("dbus-send --session --dest=org.freedesktop.ScreenSaver --type=method_call /ScreenSaver org.freedesktop.ScreenSaver.Lock") end),
     awful.key({}, "XF86Standby",   function () awful.util.spawn_with_shell("xset dpms force off") end),
     awful.key({}, "XF86Launch1",   function () awful.util.spawn_with_shell("urxvt") end),
     awful.key({}, "XF86SplitScreen", function () awful.util.spawn_with_shell("lxrandr") end),
