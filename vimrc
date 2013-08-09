@@ -185,7 +185,17 @@ let Tex_FoldedMisc=""
 " Toggle: <Leader>c<Space>
 
 "" python-mode
+" function cannot be too complex ;)
+let g:pymode_lint_mccabe_complexity = 100
+" disable folding in python-mode
 let g:python_folding = 0
+let g:pymode_folding = 0
+" disable error window
+let g:pymode_lint_cwindow = 0
+" Skip errors and warnings
+" " E.g. "E501,W002", "E2,W" (Skip all Warnings and Errors startswith E2) and
+" etc
+" let g:pymode_lint_ignore = ""
 
 "" Ultisnips
 let g:UltiSnipsExpandTrigger="<C-tab>"
@@ -202,8 +212,6 @@ let g:ycm_key_list_previous_completion=['<Up>']
 
 "" vim-ipython
 let g:ipy_perform_mappings = 0
-" function cannot be too complex ;)
-let g:pymode_lint_mccabe_complexity = 100
 nmap <silent> <Leader>s :py if update_subchannel_msgs(force=True): echo("vim-ipython shell updated",'Operator')<CR>
 nmap <silent> <C-y> :python run_this_file()<CR>
 nmap <silent> <C-x> :python run_this_line()<CR>
