@@ -16,8 +16,10 @@
 # don't put duplicate entries or those beginning with
 # a space in history
 export HISTCONTROL=ignoreboth
-# we want a big history
+# load these lines from the history file
 export HISTSIZE=10000
+# history file may grow to infinity
+export HISTFILESIZE=""
 # ignore some lines
 export HISTIGNORE=l:history*:ls:ll:la:tt:ttl:tta:tts
 # time stamps
