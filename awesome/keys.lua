@@ -10,25 +10,11 @@ function ror_class(cmd, cls)
 end
 
 function lower_volume()
-    awful.util.spawn("amixer -q sset Master 2dB-") 
-    local f = io.popen("amixer get Master | egrep \"Front Left: Playback\" | egrep -o \"[0-9]+%\"")
-    local fr = ""
-    for line in f:lines() do
-        fr = fr .. line .. "\n"
-    end
-    f:close()
-    -- naughty.notify({ text = "Master Volume: " .. fr .. "", timeout = 1})
+    awful.util.spawn("pactl set-sink-volume 0 -- -2dB") 
 end
 
 function raise_volume()
-    awful.util.spawn("amixer -q sset Master 2dB+") 
-    local f = io.popen("amixer get Master | egrep \"Front Left: Playback\" | egrep -o \"[0-9]+%\"")
-    local fr = ""
-    for line in f:lines() do
-        fr = fr .. line .. "\n"
-    end
-    f:close()
-    -- naughty.notify({ text = "Master Volume: " .. fr .. "", timeout = 1})
+    awful.util.spawn("pactl set-sink-volume 0 -- +2dB") 
 end
 -- }}}
 
@@ -86,9 +72,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "e", function () awful.util.spawn("krunner") end),
     awful.key({ modkey,           }, "g", function () awful.util.spawn("dolphin") end),
     awful.key({ modkey, }, 'F1', function () ror_class("firefox", "Firefox") end),
-    awful.key({ modkey, }, 'F2', function () ror_class("pidgin", "Pidgin") end),
+    awful.key({ modkey, }, 'F2', function () ror_class("kopete", "Kopete") end),
     awful.key({ modkey, }, 'F3', function () ror_class("gvim", "Gvim") end),
-    awful.key({ modkey, }, 'F4', function () ror_class("appchooser", "Appchooser") end),
+    awful.key({ modkey, }, 'F4', function () ror_class("kontact", "Kontact") end),
     awful.key({ modkey, }, 'F5', function () ror_class("clementine", "Clementine") end),
     awful.key({ modkey, }, 'F6', function () ror_class("google-chrome", "Google-chrome") end),
 
@@ -131,14 +117,7 @@ end),
     awful.key({ modkey }, "-", function () lower_volume() end),
     awful.key({ modkey }, "+", function () raise_volume() end),
     awful.key({ }, "XF86AudioMute", function () 
-                        awful.util.spawn("amixer set Master toggle") 
-                        local f = io.popen("amixer get Master | egrep \"Front Left: Playback\" | cut -d \" \" -f 9")
-            local fr = ""
-            for line in f:lines() do
-                fr = fr .. line .. "\n"
-            end
-            f:close()
-            -- naughty.notify({ text = "Toggled Sound: " .. fr .. "", timeout = 1})
+                awful.util.spawn("amixer set Master toggle") 
     end)
 )
 

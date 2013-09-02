@@ -19,9 +19,11 @@ awful.rules.rules = {
       properties = { tag = tags[1][5] } },
     { rule = { class = "Firefox" },
        properties = { tag = tags[s][1] } },
-    { rule = { class = "Pidgin" },
+    { rule_any = { class = { "Pidgin", "Kopete", "Skype" } },
        properties = { tag = tags[1][1] } },
     { rule = { class = "Eclipse" },
        properties = { tag = tags[s][2] } },
+    { rule = { class = "Kontact" },
+       properties = { tag = tags[s][4] } },
 }
 -- }}}
