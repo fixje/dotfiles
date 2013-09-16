@@ -3,6 +3,7 @@ awful.rules = require("awful.rules")
 s = screen.count()
 
 -- {{{ Rules
+--  TODO rulwes depending on the number of displays
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
