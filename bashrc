@@ -280,7 +280,7 @@ then
     alias pacs="pacman -Ss"
     alias pacup="sudo pacman -Syu"
     alias pacins="sudo pacman -S"
-    alias pacrm="sudo pacman -Rsu"
+    alias pacrm="sudo pacman -Rs"
     alias aurs="yaourt -Ss"
     alias aurup="sudo yaourt --aur -Syu"
     alias aurins="yaourt -S"
