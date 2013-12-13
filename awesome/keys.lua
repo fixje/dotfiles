@@ -76,7 +76,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, }, 'F3', function () ror_class("gvim", "Gvim") end),
     awful.key({ modkey, }, 'F4', function () ror_class("kontact", "Kontact") end),
     awful.key({ modkey, }, 'F5', function () ror_class("clementine", "Clementine") end),
-    awful.key({ modkey, }, 'F6', function () ror_class("google-chrome", "Google-chrome") end),
+    awful.key({ modkey, }, 'F6', function () ror_class("google-chrome-stable", "Google-chrome-stable") end),
     awful.key({ modkey, }, 'F7', function () ror_class("skype", "Skype") end),
 
     awful.key({ modkey, "Control" }, "r", awesome.restart),
