@@ -26,5 +26,8 @@ inoremap <C-f> /
 inoremap <C-a> <Ins><C-a><Ins>
 map <Leader>gl :tabgroups list<CR>
 map <Leader>gs :tabgroups switch 
+map <Leader>f :tabopen https://fixje.mensa.uberspace.de/ttrss<CR>
+map <Leader>p :window -private open about:blank<CR>
+map <C-S-p> :window -private open about:blank<CR>
 
 
