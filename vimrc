@@ -55,6 +55,7 @@ set hidden                  " allow to switch buffers without saving
 set laststatus=2            " always enable status bar
 set linebreak               " 
 set list                    " show tabs and spaces
+set vb                      " visual bell to prevent beep
 set listchars=tab:>·,trail:·
 set mouse=a                 " let's do everything with the mouse
 set nu!                     " show line numbers
