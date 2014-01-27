@@ -30,4 +30,6 @@ map <Leader>f :tabopen https://fixje.mensa.uberspace.de/ttrss<CR>
 map <Leader>p :window -private open about:blank<CR>
 map <C-S-p> :window -private open about:blank<CR>
 
+" bookmark
+map <Leader>bm :execute javascript:(function(){var a=window,b=document,c=encodeURIComponent,e=buffer.title,d=a.open('https://fixje.mensa.uberspace.de/cloud/index.php/apps/bookmarks/addBm.php?output=popup&url='+c(buffer.URL)+'&title='+e,'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=400px,width=550px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300);})();<CR>
 
