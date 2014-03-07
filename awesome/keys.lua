@@ -10,11 +10,11 @@ function ror_class(cmd, cls)
 end
 
 function lower_volume()
-    awful.util.spawn("pactl set-sink-volume 0 -- -2dB") 
+    awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ -- -2dB") 
 end
 
 function raise_volume()
-    awful.util.spawn("pactl set-sink-volume 0 -- +2dB") 
+    awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ -- +2dB") 
 end
 -- }}}
 
@@ -78,6 +78,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, }, 'F5', function () ror_class("clementine", "Clementine") end),
     awful.key({ modkey, }, 'F6', function () ror_class("google-chrome-stable", "Google-chrome-stable") end),
     awful.key({ modkey, }, 'F7', function () ror_class("skype", "Skype") end),
+    awful.key({ modkey, }, 'F8', function () ror_class("pavucontrol", "Pavucontrol") end),
 
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
@@ -118,7 +119,7 @@ end),
     awful.key({ modkey }, "-", function () lower_volume() end),
     awful.key({ modkey }, "+", function () raise_volume() end),
     awful.key({ }, "XF86AudioMute", function () 
-                awful.util.spawn("amixer set Master toggle") 
+                awful.util.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") 
     end)
 )
 
