@@ -1,6 +1,7 @@
 # environment variables
 ##
 export JAVA_HOME=/opt/java/jre
+export ECLIPSE_HOME=/home/fixje/.eclipse
 export PATH=/home/fixje/bin:$PATH:/opt/java/bin:/usr/local/bin
 export CDPATH=$CDPATH:.:/media/terra:/media/exhdd:/home/fixje/uni/bachelor-thesis
 #export PYTHONPATH=.:/usr/lib/python3.2:/usr/lib/python2.6:/usr/lib/python2.7
@@ -9,13 +10,9 @@ export PYTHONDOCS=/usr/share/doc/python/html/
 export DEVKITPRO=/opt/devkitpro/
 export DEVKITARM=/opt/devkitpro/devkit
 export PATH=${PATH}:${DEVKITARM}/bin
+export TCL_LIBRARY=/usr/lib/tcl8.6
 
 
 # starting Virtual Machines
-alias openbsd='VBoxManage startvm freebsd --type headless'
-alias debvm='VBoxManage startvm debian-db01 --type headless'
+alias archtest='VBoxManage startvm arch --type headless'
 alias win8='VBoxManage startvm win8 --type gui'
-alias gridvm='VBoxManage startvm GridCloud --type gui'
-
-alias cm="cd ~/masterarbeit/"
-alias cms="cd ~/masterarbeit/src/"
