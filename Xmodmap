@@ -1,5 +1,11 @@
+! caps lock
+clear Lock
 keycode 66 = XF86LaunchA
+
+! ThinkVantage
 keycode 159 = XF86Launch1 
+
+! Fn keys etc.
 keycode 160 = XF86ModeLock
 keycode 244 = XF86Standby
 keycode 235 = XF86SplitScreen
