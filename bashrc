@@ -124,7 +124,7 @@ alias sudo='sudo '
 
 # some little helpers
 alias j='jobs -l'
-alias whichE='type -a'
+alias which_='type -a'
 alias ..='cd ..'
 alias svi='sudoedit'
 alias pd="pushd"
@@ -147,6 +147,8 @@ alias gd='git diff'
 alias gdt='git difftool'
 alias ga='git add'
 alias gst='git status'
+alias gca='git commit -a -m'
+alias gcm='git commit -m'
 
 # netstat
 alias ns='netstat -panut'
