@@ -129,6 +129,7 @@ alias ..='cd ..'
 alias svi='sudoedit'
 alias pd="pushd"
 alias pod="popd"
+alias open="kde-open"
 
 # automatically create parent folders
 alias mkdir='mkdir -p'
