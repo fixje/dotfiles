@@ -231,6 +231,12 @@ function vman {
   titlestring=man\ $1" -c "let @f = 'ggVGgqgg'" -
 }
 
+# simple portscan with nc
+function portscan () {
+    nc -w1 -z $1 $2
+    if [ ! $? -eq 0 ]; then echo closed; else echo open; fi
+}
+
 ###############################################################################
 
 ## Run automatically in background

@@ -130,6 +130,8 @@ nnoremap <C-l> <C-w>l
 map <Leader>nh :nohlsearch<CR>
 map <Leader>vre :sp ~/.vimrc<CR>:set bufhidden=delete<CR>
 map <Leader>cd :lcd %:h<CR>
+map <Leader>pp :set paste<CR>
+map <Leader>np :set nopaste<CR>
 
 " quickfix window
 map <Leader>fc :cclose<CR>
