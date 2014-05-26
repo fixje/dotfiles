@@ -12,6 +12,15 @@ awful.rules.rules = {
                      focus = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
+     {
+         rule = { class = "Plasma-desktop" },
+         properties = { floating = true },
+         callback = function(c)
+             c:geometry( { width = 600 , height = 500 } )
+         end,
+     },
+    { rule_any = { class = { "kcmshell4", "Kcmshell4" } },
+      properties = { floating = true, tag = tags[1][1] } },
     { rule_any = { class = { "MPlayer", "pinetry", "gimp", "Gimp", "plugin-container", "lxrandr", "Plugin-container" } },
       properties = { floating = true } },
     { rule = { name = "alsamixer" },
