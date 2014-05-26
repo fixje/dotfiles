@@ -73,7 +73,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "g", function () awful.util.spawn("dolphin") end),
     awful.key({ modkey, }, 'F1', function () ror_class("firefox", "Firefox") end),
     awful.key({ modkey, }, 'F2', function () ror_class("kopete", "Kopete") end),
-    awful.key({ modkey, }, 'F3', function () ror_class("gvim", "Gvim") end),
+    awful.key({ modkey, }, 'F3', function () ror_class("cantata", "cantata") end),
     awful.key({ modkey, }, 'F4', function () ror_class("kontact", "Kontact") end),
     awful.key({ modkey, }, 'F5', function () ror_class("clementine", "Clementine") end),
     awful.key({ modkey, }, 'F6', function () ror_class("google-chrome-stable", "Google-chrome-stable") end),
@@ -109,7 +109,7 @@ globalkeys = awful.util.table.join(
     -- custom hotkeys
     awful.key({}, "XF86ModeLock",   function () awful.util.spawn_with_shell("dbus-send --session --dest=org.freedesktop.ScreenSaver --type=method_call /ScreenSaver org.freedesktop.ScreenSaver.Lock") end),
     awful.key({}, "XF86Standby",   function () awful.util.spawn_with_shell("xset dpms force off") end),
-    awful.key({}, "XF86Launch1",   function () awful.util.spawn_with_shell("urxvt") end),
+    awful.key({}, "XF86Launch1",   function () awful.util.spawn_with_shell("ssh iconnect '/root/mpdpl.sh'") end),
     awful.key({}, "XF86SplitScreen", function () awful.util.spawn_with_shell("lxrandr") end),
     awful.key({}, "XF86Launch4", function () awful.util.spawn("sudo /usr/local/bin/bluetooth-toggle.sh") 
 end),
