@@ -2,6 +2,8 @@ local vicious = require("vicious")
 local awful = require("awful")
 local wibox = require("wibox")
 
+icons = awful.util.getdir("config") .. "/themes/icons"
+
 -- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock(" %d.%m.%Y %H:%M ")
@@ -15,43 +17,29 @@ cpuicon = wibox.widget.imagebox()
 cpuicon:set_image("/usr/share/awesome/themes/icons/zenburn/cpu.png")
 cpuicon.bg_align = "middle"
 cpuicon.width = 8
--- netdownicon = widget ({ type = "textbox" })
--- netdownicon.bg_image = image("/usr/share/awesome/themes/icons/zenburn/down.png")
--- netdownicon.bg_align = "middle"
--- netdownicon.width = 8
--- netupicon = widget ({ type = "textbox" })
--- netupicon.bg_image = image("/usr/share/awesome/themes/icons/zenburn/up.png")
--- netupicon.bg_align = "middle"
--- netupicon.width = 8
 
 batticon = wibox.widget.imagebox()
-batticon:set_image("/usr/share/awesome/themes/icons/zenburn/bat.png")
+batticon:set_image(icons .. "/bat.png")
 batticon.bg_align = "middle"
 batticon.width = 8
 
 tempicon = wibox.widget.imagebox()
-tempicon:set_image("/usr/share/awesome/themes/icons/zenburn/temp.png")
+tempicon:set_image(icons .. "/temp.png")
 tempicon.bg_align = "middle"
 tempicon.width = 8
 
-volicon = wibox.widget.imagebox()
-volicon:set_image("/usr/share/awesome/themes/icons/zenburn/vol.png")
-volicon.bg_align = "middle"
-volicon.width = 8
-
 timeicon = wibox.widget.imagebox()
-timeicon:set_image("/usr/share/awesome/themes/icons/zenburn/time.png")
+timeicon:set_image(icons .. "/time.png")
 timeicon.bg_align = "middle"
 timeicon.width = 8
 
 pulseicon = wibox.widget.imagebox()
-pulseicon:set_image("/usr/share/awesome/themes/icons/zenburn/vol.png")
+pulseicon:set_image(icons .. "/vol.png")
 pulseicon.bg_align = "middle"
 pulseicon.width = 8
 
 cpuinfo = wibox.widget.textbox()
--- netdowninfo = widget ({ type = "textbox" })
--- netupinfo = widget ({ type = "textbox" })
+cpuinfo:set_align("right")
 battinfo = wibox.widget.textbox()
 tempinfo = wibox.widget.textbox()
 
@@ -71,8 +59,7 @@ pulseicon:buttons(awful.util.table.join(
 ))
 
 vicious.register(cpuinfo, vicious.widgets.cpu, "$2% / $3% / $4% / $5%")
--- vicious.register(netdowninfo, vicious.widgets.net, "${wlan0 down_kb}", 3)
--- vicious.register(netupinfo, vicious.widgets.net, "${wlan0 up_kb}", 3)
+--cpuinfo = wibox.layout.constraint(cpuinfo, "exact", 135, nil)
 vicious.register(battinfo, vicious.widgets.bat, "$2%$1", 60, "BAT0")
 vicious.register(tempinfo, vicious.widgets.thermal, "$1°C", 5, "thermal_zone0")
 vicious.register(volinfo, vicious.widgets.volume, "$2 $1%", 1, "Master")

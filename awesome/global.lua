@@ -44,7 +44,8 @@ end
 
 
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/usr/share/awesome/themes/wombat/theme.lua")
+config = awful.util.getdir("config")
+beautiful.init(config .. "/themes/wombat/theme.lua")
 -- {{{ Wallpaper
 -- for s = 1, screen.count() do
 --    gears.wallpaper.maximized("/usr/share/awesome/themes/wombat/background.jpg", s, true)
