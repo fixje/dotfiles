@@ -114,13 +114,13 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86Launch4", function () awful.util.spawn("sudo /usr/local/bin/bluetooth-toggle.sh") 
 end),
     awful.key({}, "XF86Launch5", function () awful.util.spawn("/usr/local/bin/touchpad-toggle.sh") end),
-    awful.key({ }, "XF86AudioLowerVolume", function () lower_volume() end),
-    awful.key({ }, "XF86AudioRaiseVolume", function () raise_volume() end),
+    --awful.key({ }, "XF86AudioLowerVolume", function () lower_volume() end),
+    --awful.key({ }, "XF86AudioRaiseVolume", function () raise_volume() end),
+    --awful.key({ }, "XF86AudioMute", function () 
+                --awful.util.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") 
+    --end)
     awful.key({ modkey }, "-", function () lower_volume() end),
-    awful.key({ modkey }, "+", function () raise_volume() end),
-    awful.key({ }, "XF86AudioMute", function () 
-                awful.util.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") 
-    end)
+    awful.key({ modkey }, "+", function () raise_volume() end)
 )
 
 
