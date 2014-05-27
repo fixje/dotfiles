@@ -23,37 +23,52 @@ cpuicon.width = 8
 -- netupicon.bg_image = image("/usr/share/awesome/themes/icons/zenburn/up.png")
 -- netupicon.bg_align = "middle"
 -- netupicon.width = 8
+
 batticon = wibox.widget.imagebox()
 batticon:set_image("/usr/share/awesome/themes/icons/zenburn/bat.png")
 batticon.bg_align = "middle"
 batticon.width = 8
+
 tempicon = wibox.widget.imagebox()
 tempicon:set_image("/usr/share/awesome/themes/icons/zenburn/temp.png")
 tempicon.bg_align = "middle"
 tempicon.width = 8
+
 volicon = wibox.widget.imagebox()
 volicon:set_image("/usr/share/awesome/themes/icons/zenburn/vol.png")
 volicon.bg_align = "middle"
 volicon.width = 8
+
 timeicon = wibox.widget.imagebox()
 timeicon:set_image("/usr/share/awesome/themes/icons/zenburn/time.png")
 timeicon.bg_align = "middle"
 timeicon.width = 8
+
+pulseicon = wibox.widget.imagebox()
+pulseicon:set_image("/usr/share/awesome/themes/icons/zenburn/vol.png")
+pulseicon.bg_align = "middle"
+pulseicon.width = 8
 
 cpuinfo = wibox.widget.textbox()
 -- netdowninfo = widget ({ type = "textbox" })
 -- netupinfo = widget ({ type = "textbox" })
 battinfo = wibox.widget.textbox()
 tempinfo = wibox.widget.textbox()
+
 volinfo = wibox.widget.textbox()
 volbuttons = awful.util.table.join(
         awful.button({ }, 1, function() awful.util.spawn_with_shell("urxvt -name alsamixerfloat -e alsamixer", mouse.screen) end)
         )
 volinfo:buttons(volbuttons)
+
 timebuttons = awful.util.table.join(
         awful.button({ }, 1, function() awful.util.spawn("hamster-time-tracker", false, mouse.screen) end)
         )
 timeicon:buttons(timebuttons)
+
+pulseicon:buttons(awful.util.table.join(
+        awful.button({ }, 1, function() awful.util.spawn("pavucontrol", false,  mouse.screen) end)
+))
 
 vicious.register(cpuinfo, vicious.widgets.cpu, "$2% / $3% / $4% / $5%")
 -- vicious.register(netdowninfo, vicious.widgets.net, "${wlan0 down_kb}", 3)
@@ -149,7 +164,9 @@ for s = 1, screen.count() do
     right_layout:add(tempinfo)
     right_layout:add(seperator)
     right_layout:add(volinfo)
+    right_layout:add(pulseicon)
     right_layout:add(seperator)    
+    --right_layout:add(timeicon)
     right_layout:add(mytextclock)
 
     right_layout:add(mylayoutbox[s])

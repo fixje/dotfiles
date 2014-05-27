@@ -31,8 +31,12 @@ awful.rules.rules = {
        properties = { tag = tags[s][1] } },
     { rule_any = { class = { "Pidgin", "Kopete", "Skype" } },
        properties = { tag = tags[1][7] } },
-    { rule_any = { class = { "Pavucontrol" } },
-       properties = { tag = tags[s][8] } },
+    { rule_any = { class = { "Pavucontrol" },
+         callback = function(c)
+              c:geometry( { width = 600 , height = 500 } )
+       end,
+    },
+       properties = { floating = true } },
     { rule_any = { class = { "Google-chrome-stable" } },
        properties = { tag = tags[s][6] } },
     { rule = { class = "Eclipse" },
