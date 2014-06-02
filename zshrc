@@ -19,6 +19,9 @@ if [ "$TERM" != "dumb" ]; then
         alias grep='grep --color'
     fi
 fi
+# colored manpages
+alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
+
 autoload -U colors
 colors
 

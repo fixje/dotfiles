@@ -7,6 +7,10 @@ git pull
 
 CDIR=`pwd`
 
+# install terminfo
+tic ${CDIR}/terminfo/mostlike.txt
+tic ${CDIR}/terminfo/urxvt.txt
+
 # link it
 install -d ~/.config
 ln -si ${CDIR}/awesome ${HOME}/.config/awesome
