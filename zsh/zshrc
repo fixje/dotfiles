@@ -25,6 +25,9 @@ alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
 autoload -U colors
 colors
 
+# syntax highlighting
+source ~/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 
 ## Completion
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
