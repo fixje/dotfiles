@@ -38,8 +38,13 @@ pulseicon:set_image(icons .. "/vol.png")
 pulseicon.bg_align = "middle"
 pulseicon.width = 8
 
-cpuinfo = wibox.widget.textbox()
-cpuinfo:set_align("right")
+--cpuinfo = wibox.widget.textbox()
+--cpuinfo:set_align("right")
+cpuinfo = awful.widget.graph()
+cpuinfo:set_background_color("#000000")
+cpuinfo:set_width(35)
+cpuinfo:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 },
+stops = { {0, "#FF5656"}, {0.5, "#88A175"}, {1, "#AECF96" }}})
 battinfo = wibox.widget.textbox()
 tempinfo = wibox.widget.textbox()
 
@@ -58,7 +63,8 @@ pulseicon:buttons(awful.util.table.join(
         awful.button({ }, 1, function() awful.util.spawn("pavucontrol", false,  mouse.screen) end)
 ))
 
-vicious.register(cpuinfo, vicious.widgets.cpu, "$2% / $3% / $4% / $5%")
+--vicious.register(cpuinfo, vicious.widgets.cpu, "$2% / $3% / $4% / $5%")
+vicious.register(cpuinfo, vicious.widgets.cpu, "$1")
 --cpuinfo = wibox.layout.constraint(cpuinfo, "exact", 135, nil)
 vicious.register(battinfo, vicious.widgets.bat, "$2%$1", 60, "BAT0")
 vicious.register(tempinfo, vicious.widgets.thermal, "$1°C", 5, "thermal_zone0")
