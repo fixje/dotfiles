@@ -4,6 +4,25 @@
 #
 ###############################################################################
 
+## Load colors
+# enable color support of ls and also add handy aliases
+if [ "$TERM" != "dumb" ]; then
+    if [ -f /bin/dircolors ]
+    then
+        eval "`dircolors -b`"
+    fi
+
+    # only on Linux
+    if [ "$(uname -s)" = "Linux" ]
+    then
+        alias ls='ls --color=always -h'
+        alias grep='grep --color'
+    fi
+fi
+autoload -U colors
+colors
+
+
 ## Completion
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
@@ -13,9 +32,9 @@ zstyle ':completion:*' max-errors 2
 zstyle ':completion:*' substitute 1
 zstyle :compinstall filename '/home/fixje/.zshrc'
 
-unsetopt ALWAYS_LAST_PROMPT            # show menu above prompt
+#unsetopt ALWAYS_LAST_PROMPT            # show menu above prompt
 
-autoload -Uz compinit
+autoload -U compinit
 compinit
 
 
@@ -81,26 +100,7 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
 fi
 
 
-## Prompt and color
-autoload -U promptinit colors
-promptinit
-colors
-
-# enable color support of ls and also add handy aliases
-if [ "$TERM" != "dumb" ]; then
-    if [ -f /bin/dircolors ]
-    then
-        eval "`dircolors -b`"
-    fi
-
-    # only on Linux
-    if [ "$(uname -s)" = "Linux" ]
-    then
-        alias ls='ls --color=always -h'
-        alias grep='grep --color'
-    fi
-fi
-
+## Prompt
 function preexec() {
   timer=${timer:-$SECONDS}
 }
