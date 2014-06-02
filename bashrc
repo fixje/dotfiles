@@ -309,11 +309,3 @@ then
     alias pacrm='sudo aptitude remove'
     alias pacins='sudo aptitude install'
 fi
-
-###############################################################################
-###############################################################################
-## Machine specific stuff
-if [ -f ~/.bashrc_local ]
-then
-. ~/.bashrc_local
-fi
