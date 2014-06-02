@@ -73,6 +73,9 @@ key[Left]=${terminfo[kcub1]}
 key[Right]=${terminfo[kcuf1]}
 key[PageUp]=${terminfo[kpp]}
 key[PageDown]=${terminfo[knp]}
+key[F1]=${terminfo[kf1]}
+key[F2]=${terminfo[kf2]}
+key[F3]=${terminfo[kf3]}
 
 # setup key accordingly
 [[ -n "${key[Home]}"     ]]  && bindkey  "${key[Home]}"     beginning-of-line
@@ -85,6 +88,9 @@ key[PageDown]=${terminfo[knp]}
 [[ -n "${key[Right]}"    ]]  && bindkey  "${key[Right]}"    forward-char
 [[ -n "${key[PageUp]}"   ]]  && bindkey  "${key[PageUp]}"    history-beginning-search-backward
 [[ -n "${key[PageDown]}" ]]  && bindkey  "${key[PageDown]}"  history-beginning-search-forward
+[[ -n "${key[F1]}" ]]  && bindkey -s "${key[F1]}"   "sudo -s\n"
+[[ -n "${key[F2]}" ]]  && bindkey -s "${key[F2]}"   "| less\n"
+[[ -n "${key[F3]}" ]]  && bindkey -s "${key[F3]}"   "dmesg\n"
 
 # Finally, make sure the terminal is in application mode, when zle is
 # active. Only then are the values from $terminfo valid.
