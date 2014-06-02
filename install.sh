@@ -18,7 +18,7 @@ ln -si ${CDIR}/vim ${HOME}/.vim
 
 
 ln -si ${CDIR}/bashrc ${HOME}/.bashrc
-touch ${HOME}/.bashrc_local
+ln -si ${CDIR}/zshrc ${HOME}/.zshrc
 ln -si ${CDIR}/gitconfig ${HOME}/.gitconfig
 ln -si ${CDIR}/gvimrc ${HOME}/.gvimrc
 ln -si ${CDIR}/inputrc ${HOME}/.inputrc
