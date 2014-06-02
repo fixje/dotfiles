@@ -22,7 +22,7 @@ ln -si ${CDIR}/vim ${HOME}/.vim
 
 
 ln -si ${CDIR}/bashrc ${HOME}/.bashrc
-ln -si ${CDIR}/zshrc ${HOME}/.zshrc
+ln -si ${CDIR}/zsh/zshrc ${HOME}/.zshrc
 ln -si ${CDIR}/gitconfig ${HOME}/.gitconfig
 ln -si ${CDIR}/gvimrc ${HOME}/.gvimrc
 ln -si ${CDIR}/inputrc ${HOME}/.inputrc

@@ -125,8 +125,23 @@ function precmd() {
   fi
 }
 
+function hostColor() {
+    # print yellow if ssh session, green otherwise
+    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+      echo -n "yellow"
+      return
+    # many other tests omitted
+    else
+      case $(ps -o comm= -p $PPID) in
+        sshd|*/sshd) echo -n "yellow"
+                     return
+      esac
+    fi
+    echo -n "green"
+}
+
 PROMPT="%{$fg_bold[grey]%}--------------------------------------------------------------------->
-%(!.%{$fg_bold[red]%}.%{$fg_bold[green]%})%n%{$reset_color%}[%{$fg_bold[green]%}%m%{$reset_color%}] %{$fg_no_bold[blue]%}%~ %(!.#.$)%{$reset_color%} "
+%(!.%{$fg_bold[red]%}.%{$fg_bold[green]%})%n%{$reset_color%}[%{$fg_bold[$(hostColor)]%}%m%{$reset_color%}] %{$fg_no_bold[blue]%}%~ %(!.#.$)%{$reset_color%} "
 
 
 ## Aliases
