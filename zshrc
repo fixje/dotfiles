@@ -124,7 +124,6 @@ alias l='ls -CF --group-directories-first'
 alias lll='ls -l --group-directories-first | less'
 alias sudo='sudo '              # keep all functions and aliases using sudo
 alias j='jobs -l'
-alias which_='type -f'
 alias ..='cd ..'
 alias svi='sudoedit'
 alias open="kde-open"
