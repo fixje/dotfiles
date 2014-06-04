@@ -160,6 +160,29 @@ setopt SHARE_HISTORY                # share history among sessions
 setopt APPEND_HISTORY
 
 
+## Dirstack
+alias d='dirs -v'
+setopt AUTO_PUSHD                   # make cd push the old directory onto the 
+                                    # directory stack.
+setopt PUSHD_IGNORE_DUPS            # don't push the same dir twice.
+DIRSTACKSIZE=${DIRSTACKSIZE:-15}
+DIRSTACKFILE=${DIRSTACKFILE:-${ZDOTDIR:-${HOME}}/.zsh_dirs}
+
+if [[ -f ${DIRSTACKFILE} ]] && [[ ${#dirstack[*]} -eq 0 ]] ; then
+    dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
+    # "cd -" won't work after login by just setting $OLDPWD, so
+    [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
+fi
+
+chpwd() {
+    if (( $DIRSTACKSIZE <= 0 )) || [[ -z $DIRSTACKFILE ]]; then return; fi
+    local -ax my_stack
+    my_stack=( ${PWD} ${dirstack} )
+    print -l ${(u)my_stack} >! ${DIRSTACKFILE}
+    sort -u $DIRSTACKFILE -o $DIRSTACKFILE
+}
+
+#
 ## Misc
 # disable C-s C-q aka xon/xoff
 stty -ixon
@@ -171,9 +194,6 @@ setopt noglobdots                   # * shouldn't match dotfiles. ever.
 unsetopt notify                     # no immediate notify of bg jobs
 setopt longlistjobs                 # display PID when suspending processes
 
-setopt AUTO_PUSHD                   # make cd push the old directory onto the 
-                                    # directory stack.
-setopt PUSHD_IGNORE_DUPS            # don't push the same dir twice.
 setopt NO_BEEP                      # avoid "beep"ing
 
 # automatically remove duplicates from these arrays
@@ -207,7 +227,7 @@ key[F1]=${terminfo[kf1]}
 key[F2]=${terminfo[kf2]}
 key[F3]=${terminfo[kf3]}
 
-# setup key accordingly
+# setup keys accordingly
 [[ -n "${key[Home]}"     ]]  && bindkey  "${key[Home]}"     beginning-of-line
 [[ -n "${key[End]}"      ]]  && bindkey  "${key[End]}"      end-of-line
 [[ -n "${key[Insert]}"   ]]  && bindkey  "${key[Insert]}"   overwrite-mode
@@ -221,6 +241,10 @@ key[F3]=${terminfo[kf3]}
 [[ -n "${key[F1]}" ]]  && bindkey -s "${key[F1]}"   "sudo -s\n"
 [[ -n "${key[F2]}" ]]  && bindkey -s "${key[F2]}"   "| less\n"
 [[ -n "${key[F3]}" ]]  && bindkey -s "${key[F3]}"   "dmesg\n"
+
+# wildcards in history search
+bindkey "^R" history-incremental-pattern-search-backward
+bindkey "^S" history-incremental-pattern-search-forward
 
 # Finally, make sure the terminal is in application mode, when zle is
 # active. Only then are the values from $terminfo valid.
