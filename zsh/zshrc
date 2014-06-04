@@ -41,6 +41,8 @@ colors
 # syntax highlighting
 source ~/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+## Custom scripts
+fpath=(~/dotfiles/zsh/lib $fpath) 
 
 ## Completion
 #unsetopt ALWAYS_LAST_PROMPT            # show menu above prompt
@@ -79,8 +81,8 @@ zstyle ':completion:*:matches'         group 'yes'
 zstyle ':completion:*'                 group-name ''
 
 if [[ "$NOMENU" -eq 0 ]] ; then
-    # if there are more than 5 options allow selecting from a menu
-    zstyle ':completion:*'               menu select=5
+    # if there are more than 3 options allow selecting from a menu
+    zstyle ':completion:*'               menu select=3
 else
     # don't use any menus at all
     setopt no_auto_menu
@@ -259,7 +261,7 @@ function hostColor() {
     echo -n "green"
 }
 
-PROMPT="%{$fg_bold[grey]%}--------------------------------------------------------------------->
+PROMPT="%{$fg_bold[grey]%}-------------------------------------------------------------------------------->
 %(!.%{$fg_bold[red]%}.%{$fg_bold[green]%})%n%{$reset_color%}[%{$fg_bold[$(hostColor)]%}%m%{$reset_color%}] %{$fg_no_bold[blue]%}%~ %(!.#.$)%{$reset_color%} "
 
 
@@ -491,7 +493,7 @@ then
     alias pacs="pacman -Ss"
     alias pacup="sudo pacman -Syu"
     alias pacins="sudo pacman -S"
-    alias pacrm="sudo pacman -Rs"
+    alias pacrm="sudo pacman -Rds"
     alias aurs="yaourt -Ss"
     alias aurup="sudo yaourt --aur -Syu"
     alias aurins="yaourt -S"
