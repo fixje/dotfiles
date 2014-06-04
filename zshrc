@@ -151,6 +151,7 @@ done; unset compcom
 
 # complete words from tmux pane(s) {{{1
 # Source: http://blog.plenz.com/2012-01/zsh-complete-words-from-tmux-pane.html
+_tmux_old=$(tmux capture-pane -J &>/dev/null; echo $?)
 _tmux_pane_words() {
     local expl
     local -a w
@@ -158,13 +159,18 @@ _tmux_pane_words() {
         _message "not running inside tmux!"
         return 1
     fi
-    # capture current pane first
-    w=( ${(u)=$(tmux capture-pane -J -p)} )
-    for i in $(tmux list-panes -F '#P'); do
-        # skip current pane (handled above)
-        [[ "$TMUX_PANE" = "$i" ]] && continue
-        w+=( ${(u)=$(tmux capture-pane -J -p -t $i)} )
-    done
+    if [ $_tmux_old -eq 0 ]
+    then
+        # capture current pane first
+        w=( ${(u)=$(tmux capture-pane -J -p)} )
+        for i in $(tmux list-panes -F '#P'); do
+            # skip current pane (handled above)
+            [[ "$TMUX_PANE" = "$i" ]] && continue
+            w+=( ${(u)=$(tmux capture-pane -J -p -t $i)} )
+        done
+    else
+        w=( ${(u)=$(tmux capture-pane \; show-buffer \; delete-buffer)} )
+    fi
     _wanted values expl 'words from current tmux pane' compadd -a w
 }
 
@@ -175,7 +181,7 @@ bindkey '^X^X' tmux-pane-words-anywhere
 zstyle ':completion:tmux-pane-words-(prefix|anywhere):*' completer _tmux_pane_words
 zstyle ':completion:tmux-pane-words-(prefix|anywhere):*' ignore-line current
 # display the (interactive) menu on first execution of the hotkey
-zstyle ':completion:tmux-pane-words-(prefix|anywhere):*' menu yes select interactive
+zstyle ':completion:tmux-pane-words-(prefix|anywhere):*' menu yes select #interactive
 zstyle ':completion:tmux-pane-words-anywhere:*' matcher-list 'b:=* m:{A-Za-z}={a-zA-Z}'
 # }}}
 
