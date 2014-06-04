@@ -38,11 +38,14 @@ alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
 autoload -U colors
 colors
 
-# syntax highlighting
-source ~/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -d ~/.zsh ]
+then
+    # syntax highlighting
+    source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-## Custom scripts
-fpath=(~/dotfiles/zsh/lib $fpath) 
+    ## Custom scripts
+    fpath=(~/.zsh $fpath) 
+fi
 
 ## Completion
 #unsetopt ALWAYS_LAST_PROMPT            # show menu above prompt
