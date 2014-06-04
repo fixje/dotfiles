@@ -27,6 +27,7 @@ ln -si ${CDIR}/zsh ${HOME}/.zsh
 ln -si ${CDIR}/gitconfig ${HOME}/.gitconfig
 ln -si ${CDIR}/gvimrc ${HOME}/.gvimrc
 ln -si ${CDIR}/inputrc ${HOME}/.inputrc
+ln -si ${CDIR}/my.cnf ${HOME}/.my.cnf
 ln -si ${CDIR}/screenrc ${HOME}/.screenrc
 ln -si ${CDIR}/tmux.conf ${HOME}/.tmux.conf
 ln -si ${CDIR}/vimperatorrc ${HOME}/.vimperatorrc
