@@ -1,5 +1,6 @@
 local awful = awful
 local beautiful = require("beautiful")
+local drop      = require("scratchdrop")
 -- mousefinder = awful.mouse.finder()
 
 
@@ -114,6 +115,10 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86Launch4", function () awful.util.spawn("sudo /usr/local/bin/bluetooth-toggle.sh") 
 end),
     awful.key({}, "XF86Launch5", function () awful.util.spawn("/usr/local/bin/touchpad-toggle.sh") end),
+    awful.key({}, "XF86LaunchA", function () drop("urxvt -name urxvt_drop -e tmux attach-session", "top", "center", 1, 0.60, true, screen.count()) end),
+    awful.key({ modkey }, "XF86LaunchA", function () drop("urxvt -name urxvt_drop2 -e ipython2", "bottom", "left", 0.50, 0.40, true, screen.count()) end),
+    awful.key({ modkey }, "^", function () drop("urxvt -name urxvt_drop3 -e vim ~/notes", "bottom", "right", 0.50, 0.40, true, screen.count()) end),
+    --awful.key({ }, "XF86AudioLowerVolume", function () lower_volume() end),
     --awful.key({ }, "XF86AudioLowerVolume", function () lower_volume() end),
     --awful.key({ }, "XF86AudioRaiseVolume", function () raise_volume() end),
     --awful.key({ }, "XF86AudioMute", function () 
