@@ -6,9 +6,6 @@
 --            * Markus Fuchs <web-code@mfuchs.org>
 -- Licensed under the WTFPL version 2
 --   * http://sam.zoy.org/wtfpl/COPYING
--- Known issues:
---   * Closing a scratchdrop window prevents it from being opened
---     again.
 -------------------------------------------------------------------
 -- To use this module add:
 --   local scratchdrop = require("scratchdrop")
@@ -92,16 +89,18 @@ function set_scratchdrop_properties(c, vert, horiz, width, height, sticky, scree
     if c.titlebar then awful.titlebar.remove(c) end
 end
 
--- Create a new window for the drop-down application when it doesn't
--- exist, or toggle between hidden and visible states when it does
-function toggle(prog, vert, horiz, width, height, sticky, screen)
-    vert   = vert   or "top"
-    horiz  = horiz  or "center"
-    width  = width  or 1
-    height = height or 0.25
-    sticky = sticky or false
-    screen = screen or capi.mouse.screen
+-- Hide and detach tags if not
+function scratchdrop_hide(c)
+    c.hidden = true
+    local ctags = c:tags()
+    for i, t in pairs(ctags) do
+        ctags[i] = nil
+    end
+    c:tags(ctags)
+end
 
+
+function scratchdrop_init_prog(prog)
     if not dropdown[prog] then
         dropdown[prog] = {}
 
@@ -114,6 +113,20 @@ function toggle(prog, vert, horiz, width, height, sticky, screen)
             end
         end)
     end
+end
+
+
+-- Create a new window for the drop-down application when it doesn't
+-- exist, or toggle between hidden and visible states when it does
+function toggle(prog, vert, horiz, width, height, sticky, screen)
+    vert   = vert   or "top"
+    horiz  = horiz  or "center"
+    width  = width  or 1
+    height = height or 0.25
+    sticky = sticky or false
+    screen = screen or capi.mouse.screen
+
+    scratchdrop_init_prog(prog)
 
     if not dropdown[prog][screen] then
         spawnw = function (c)
@@ -146,13 +159,8 @@ function toggle(prog, vert, horiz, width, height, sticky, screen)
             c.hidden = false
             c:raise()
             capi.client.focus = c
-        else -- Hide and detach tags if not
-            c.hidden = true
-            local ctags = c:tags()
-            for i, t in pairs(ctags) do
-                ctags[i] = nil
-            end
-            c:tags(ctags)
+        else
+            scratchdrop_hide(c)
         end
     end
 end
@@ -171,19 +179,13 @@ function scratchdrop_restore(c)
         width = tonumber(width)
         height = tonumber(height)
         screen = tonumber(screen)
+
+        scratchdrop_init_prog(prog)
         set_scratchdrop_properties(c, vert, horiz, width, height, sticky, screen, prog)
 
-        if not dropdown[prog] then
-            dropdown[prog] = {}
-        end
         dropdown[prog][screen] = c
 
-        c.hidden = true
-        local ctags = c:tags()
-        for i, t in pairs(ctags) do
-            ctags[i] = nil
-        end
-        c:tags(ctags)
+        scratchdrop_hide(c)
     end
 end
 
