@@ -51,7 +51,7 @@ require("rules")
 require("signals")
 
 -- battery warning
-require("batwarning")
+-- KDE require("batwarning")
 
 -- HACK to fix Java GUIs
 awful.util.spawn_with_shell("wmname LG3D")
