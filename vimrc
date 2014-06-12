@@ -51,6 +51,7 @@ set colorcolumn=80
 highlight ColorColumn ctermbg=7  guibg=LightGray
 set directory=~/.vim/swap   " Don't clutter my dirs up with swp and tmp files
 set guioptions-=T           " Disallows gui toolbar
+set guioptions-=m           " Hide menu bar
 set hidden                  " allow to switch buffers without saving
 set laststatus=2            " always enable status bar
 set linebreak               " 
@@ -132,6 +133,8 @@ map <Leader>vre :sp ~/.vimrc<CR>:set bufhidden=delete<CR>
 map <Leader>cd :lcd %:h<CR>
 map <Leader>pp :set paste<CR>
 map <Leader>np :set nopaste<CR>
+map <Leader>mnt :set noexpandtab nolist<CR>
+map <Leader>mt :set expandtab list<CR>
 
 " quickfix window
 map <Leader>fc :cclose<CR>
