@@ -216,16 +216,14 @@ xmap [27;5;9~ <C-tab>
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_key_list_previous_completion=['<Up>']
 
-"" vim-ipython
-let g:ipy_perform_mappings = 0
-nmap <silent> <Leader>s :py if update_subchannel_msgs(force=True): echo("vim-ipython shell updated",'Operator')<CR>
-nmap <silent> <C-y> :python run_this_file()<CR>
-nmap <silent> <C-x> :python run_this_line()<CR>
-imap <silent> <C-x> <C-O>:python run_this_line()<CR>
-nmap <silent> <M-x> :python dedent_run_this_line()<CR>
-nmap <silent> x :python dedent_run_this_line()<CR>
-vmap <silent> <C-x> :python run_these_lines()<CR>
-vmap <silent> x :python dedent_run_these_lines()<CR>
+"" vim-vimux
+map <Leader>vl :VimuxRunLastCommand<CR>
+map <Leader>vp :VimuxPromptPane<CR>
+map <Leader>vi :call VimuxRunCommand("ipython2")<CR>
+vmap <silent> <C-x> :python run_tmux_python_chunk()<CR>
+map <Leader>vx :python run_tmux_python_buffer(True)<CR>
+
+
 
 " reload firefox current tab
 map <Leader>r :silent execute "!/home/fixje/hacks/firefox-remote-reload.sh &> /dev/null &"<CR> :redraw!<CR>
