@@ -21,7 +21,7 @@ set viminfo+=!
 let mapleader = ","
 
 " automatically reload vimrc when it's saved
-au BufWritePost .vimrc so ~/.vimrc
+" au BufWritePost .vimrc so ~/.vimrc
 
 "" Colors
 set t_Co=256
@@ -69,6 +69,7 @@ set showbreak=↪
 set showcmd
 set showmatch
 set textwidth=0
+set wildmenu                " menu for command line auto-completion
 set wrap
 
 "" Tabs and Spaces
@@ -154,23 +155,8 @@ map <Leader>pc :pc<CR>
 " delete current buffer
 map <Leader>bd :bd<CR>
 
-" space around arithmetic operators and after comma
-nmap <Leader>ws :s/\([\+\-\*\/]\)/ \1 /eg<CR>:s/ + =/+=/eg<CR>:s/,\(\w\)/, \1/eg<CR>:nohlsearch<CR>
-
 " git diff
 nmap <Leader>gd :new<CR>:read !git diff<CR>:set syntax=diff buftype=nofile bufhidden=delete noswapfile<CR>gg
-
-" autocomplete parenthesis, brackets and braces
-"inoremap ( ()<Left>
-"inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
-"inoremap [ []<Left>
-"inoremap <expr> ]  strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
-"inoremap { {}<Left>
-"inoremap <expr> }  strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
-
-" nice man pages
-runtime ftplugin/man.vim
-noremap K <Esc>:Man <cword><CR>
 
 """"" Plugin Settings
 "" LaTeX Suite
@@ -206,7 +192,7 @@ let g:pymode_lint_cwindow = 0
 "" Ultisnips
 let g:UltiSnipsExpandTrigger="<C-tab>"
 let g:UltiSnipsListSnippets="<C-s-tab>"
-" HACK for terminal
+" HACK for terminal (in tmux set-option -g xterm-keys on)
 imap [27;5;9~ <C-tab>
 smap [27;5;9~ <C-tab>
 nmap [27;5;9~ <C-tab>
@@ -220,11 +206,33 @@ let g:ycm_key_list_previous_completion=['<Up>']
 map <Leader>vl :VimuxRunLastCommand<CR>
 map <Leader>vp :VimuxPromptPane<CR>
 map <Leader>vi :call VimuxRunCommand("ipython2")<CR>
+" send C-c Up <CR> to terminal (to restart application)
+function! RestartVimux()
+    " C-c ArrowUp <CR>
+    :call VimuxRunCommand("OA")
+endfunction
+map <Leader>vr :call RestartVimux()<CR>
 vmap <silent> <C-x> :python run_tmux_python_chunk()<CR>
 map <Leader>vx :python run_tmux_python_buffer(True)<CR>
-
-
 
 " reload firefox current tab
 map <Leader>r :silent execute "!/home/fixje/hacks/firefox-remote-reload.sh &> /dev/null &"<CR> :redraw!<CR>
 au BufWritePost *.html silent execute "!/home/fixje/hacks/firefox-remote-reload.sh &> /dev/null &"
+
+
+"" help function
+if !has('python')
+  finish
+endif
+
+function! LeaderHelp()
+python << endpython
+import re
+reg = re.compile("^(i|v|)?(no)?(re)?map.*<[Ll]eader>.*$")
+with open(".vimrc") as rc:
+    for l in rc:
+        if reg.match(l):
+            print l
+endpython
+endfunction
+map <Leader>h :call LeaderHelp()
