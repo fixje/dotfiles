@@ -1,6 +1,6 @@
 [user]
     name = Markus Fuchs
-    email = mfuchs13@gmail.com
+    email = web-code@mfuchs.org
     signingkey = mail@mfuchs.org
 [alias]
     co = checkout
