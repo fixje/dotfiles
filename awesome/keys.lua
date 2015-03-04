@@ -1,7 +1,7 @@
 local awful = awful
 local beautiful = require("beautiful")
 local drop      = require("scratchdrop")
--- mousefinder = awful.mouse.finder()
+local screens = require("screens")
 
 
 -- {{{ helper functions
@@ -11,11 +11,11 @@ function ror_class(cmd, cls)
 end
 
 function lower_volume()
-    awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ -- -2dB") 
+    awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ -2dB") 
 end
 
 function raise_volume()
-    awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ -- +2dB") 
+    awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ +2dB") 
 end
 -- }}}
 
@@ -74,7 +74,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "g", function () awful.util.spawn("dolphin") end),
     awful.key({ modkey, }, 'F1', function () ror_class("firefox", "Firefox") end),
     awful.key({ modkey, }, 'F2', function () ror_class("kopete", "Kopete") end),
-    awful.key({ modkey, }, 'F3', function () ror_class("cantata", "cantata") end),
+    awful.key({ modkey, }, 'F3', function () ror_class("eclipse", "Eclipse") end),
     awful.key({ modkey, }, 'F4', function () ror_class("kontact", "Kontact") end),
     awful.key({ modkey, }, 'F5', function () ror_class("clementine", "Clementine") end),
     awful.key({ modkey, }, 'F6', function () ror_class("google-chrome-stable", "Google-chrome-stable") end),
@@ -110,14 +110,14 @@ globalkeys = awful.util.table.join(
     -- custom hotkeys
     awful.key({}, "XF86ModeLock",   function () awful.util.spawn_with_shell("dbus-send --session --dest=org.freedesktop.ScreenSaver --type=method_call /ScreenSaver org.freedesktop.ScreenSaver.Lock") end),
     awful.key({}, "XF86Standby",   function () awful.util.spawn_with_shell("xset dpms force off") end),
-    awful.key({}, "XF86Launch1",   function () awful.util.spawn_with_shell("ssh iconnect '/root/mpdpl.sh'") end),
-    awful.key({}, "XF86SplitScreen", function () awful.util.spawn_with_shell("lxrandr") end),
+    awful.key({}, "XF86Launch1",   function () awful.util.spawn_with_shell("/home/fixje/bin/display-disconnect.sh") end),
+    awful.key({}, "XF86SplitScreen", function () awful.util.spawn_with_shell("/home/fixje/bin/display-setup.sh") end),
     awful.key({}, "XF86Launch4", function () awful.util.spawn("sudo /usr/local/bin/bluetooth-toggle.sh") 
 end),
     awful.key({}, "XF86Launch5", function () awful.util.spawn("/usr/local/bin/touchpad-toggle.sh") end),
-    awful.key({}, "XF86LaunchA", function () drop("urxvt -name urxvt_drop -e ~/bin/tmux-default", "top", "center", 1, 0.70, true, screen.count()) end),
-    awful.key({ modkey }, "XF86LaunchA", function () drop("urxvt -name urxvt_drop2 -e $SHELL -ci 'ipython2'", "bottom", "left", 0.50, 0.30, true, screen.count()) end),
-    awful.key({ modkey }, "^", function () drop("urxvt -name urxvt_drop3 -e $SHELL -ci 'vim ~/notes'", "bottom", "right", 0.50, 0.30, true, screen.count()) end),
+    awful.key({}, "XF86LaunchA", function () drop("urxvt -name urxvt_drop -e ~/bin/tmux-default", "top", "center", 1, 0.70, true, screens.main) end),
+    awful.key({ modkey }, "XF86LaunchA", function () drop("urxvt -name urxvt_drop2 -e $SHELL -ci 'ipython2'", "bottom", "left", 0.50, 0.30, true, screens.main) end),
+    awful.key({ modkey }, "^", function () drop("urxvt -name urxvt_drop3 -e $SHELL -ci 'vim ~/notes'", "bottom", "right", 0.50, 0.30, true, screens.main) end),
     --awful.key({ }, "XF86AudioLowerVolume", function () lower_volume() end),
     --awful.key({ }, "XF86AudioLowerVolume", function () lower_volume() end),
     --awful.key({ }, "XF86AudioRaiseVolume", function () raise_volume() end),

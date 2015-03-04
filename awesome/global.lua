@@ -1,6 +1,7 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 local gears = require("gears")
+local screens = require("screens")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -23,22 +24,27 @@ layouts =
     awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.magnifier,
-    awful.layout.suit.max,
     awful.layout.suit.floating
+--    awful.layout.suit.max,
+--    awful.layout.suit.fair.horizontal,
 --    awful.layout.suit.max.fullscreen,
 --    awful.layout.suit.tile.bottom,
---    awful.layout.suit.fair.horizontal,
 --    awful.layout.suit.spiral,
 --    awful.layout.suit.spiral.dwindle,
 }
+
+local default_layout = layouts[1]
 
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {}
 for s = 1, screen.count() do
+    if s == screens.pivot then
+        default_layout = layouts[3]
+    end
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "[1]", "[2]", "[3]", "[4]", "[5]", "[6]", "[7]", "[8]" }, s, layouts[1])
+    tags[s] = awful.tag({ "[1]", "[2]", "[3]", "[4]", "[5]", "[6]", "[7]", "[8]" }, s, default_layout)
 end
 -- }}}
 

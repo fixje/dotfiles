@@ -1,9 +1,8 @@
 local beautiful = require("beautiful")
 awful.rules = require("awful.rules")
-s = screen.count()
+local screens = require("screens")
 
 -- {{{ Rules
---  TODO rulwes depending on the number of displays
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
@@ -26,11 +25,11 @@ awful.rules.rules = {
     { rule = { name = "alsamixer" },
       properties = { floating = true  } },
     { rule_any = { class = { "clementine", "Clementine" } },
-      properties = { tag = tags[1][5] } },
+      properties = { tag = tags[screens.side][5] } },
     { rule = { class = "Firefox" },
-       properties = { tag = tags[s][1] } },
+       properties = { tag = tags[screens.main][1] } },
     { rule_any = { class = { "Pidgin", "Kopete", "Skype" } },
-       properties = { tag = tags[1][7] } },
+       properties = { tag = tags[screens.side][7] } },
     { rule_any = { class = { "Pavucontrol" },
          callback = function(c)
               c:geometry( { width = 600 , height = 500 } )
@@ -38,10 +37,10 @@ awful.rules.rules = {
     },
        properties = { floating = true } },
     { rule_any = { class = { "Google-chrome-stable" } },
-       properties = { tag = tags[s][6] } },
+       properties = { tag = tags[screens.side][6] } },
     { rule = { class = "Eclipse" },
-       properties = { tag = tags[s][2] } },
+       properties = { tag = tags[screens.main][2] } },
     { rule = { class = "Kontact" },
-       properties = { tag = tags[s][4] } },
+       properties = { tag = tags[screens.mail][4] } },
 }
 -- }}}
