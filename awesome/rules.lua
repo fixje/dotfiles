@@ -36,7 +36,7 @@ awful.rules.rules = {
        end,
     },
        properties = { floating = true } },
-    { rule_any = { class = { "Google-chrome-stable" } },
+    { rule_any = { class = { "Google-chrome" } },
        properties = { tag = tags[screens.side][6] } },
     { rule = { class = "Eclipse" },
        properties = { tag = tags[screens.main][2] } },
