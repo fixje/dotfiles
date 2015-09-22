@@ -77,7 +77,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, }, 'F3', function () ror_class("eclipse", "Eclipse") end),
     awful.key({ modkey, }, 'F4', function () ror_class("kontact", "Kontact") end),
     awful.key({ modkey, }, 'F5', function () ror_class("clementine", "Clementine") end),
-    awful.key({ modkey, }, 'F6', function () ror_class("google-chrome-stable", "Google-chrome-stable") end),
+    awful.key({ modkey, }, 'F6', function () ror_class("google-chrome-stable", "Google-chrome") end),
     awful.key({ modkey, }, 'F7', function () ror_class("skype", "Skype") end),
     awful.key({ modkey, }, 'F8', function () ror_class("pavucontrol", "Pavucontrol") end),
 
@@ -111,7 +111,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86ModeLock",   function () awful.util.spawn_with_shell("dbus-send --session --dest=org.freedesktop.ScreenSaver --type=method_call /ScreenSaver org.freedesktop.ScreenSaver.Lock") end),
     awful.key({}, "XF86Standby",   function () awful.util.spawn_with_shell("xset dpms force off") end),
     awful.key({}, "XF86Launch1",   function () awful.util.spawn_with_shell("/home/fixje/bin/display-disconnect.sh") end),
-    awful.key({}, "XF86SplitScreen", function () awful.util.spawn_with_shell("/home/fixje/bin/display-setup.sh") end),
+    awful.key({}, "XF86WebCam", function () awful.util.spawn_with_shell("/home/fixje/bin/display-setup.sh") end),
     awful.key({}, "XF86Launch4", function () awful.util.spawn("sudo /usr/local/bin/bluetooth-toggle.sh") 
 end),
     awful.key({}, "XF86Launch5", function () awful.util.spawn("/usr/local/bin/touchpad-toggle.sh") end),
