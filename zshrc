@@ -40,8 +40,8 @@ colors
 
 if [ -d ~/.zsh ]
 then
-    # syntax highlighting
     source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source ~/.zsh/git_prompt.zsh
 
     ## Custom scripts
     fpath=(~/.zsh $fpath) 
@@ -188,7 +188,7 @@ zstyle ':completion:tmux-pane-words-anywhere:*' matcher-list 'b:=* m:{A-Za-z}={a
 
 ## History 
 HISTFILE=~/.zsh_history
-HISTSIZE=1000                       # loaded in shell
+HISTSIZE=100000                     # loaded in shell
 SAVEHIST=2147483647                 # 'infinite' history file
 setopt HIST_IGNORE_DUPS             # no duplicated in history
 setopt HIST_IGNORE_SPACE            # cmds with space at beginning => no hist
@@ -305,7 +305,7 @@ function preexec() {
 function precmd() {
   if [ $timer ]; then
     timer_show=$(($SECONDS - $timer))
-    export RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}%(?.☻.☹)"
+    export RPROMPT="$(git_prompt_string) %F{cyan}${timer_show}s %{$reset_color%}%(?.☻.☹)"
     unset timer
   fi
 }
@@ -341,7 +341,7 @@ alias svi='sudoedit'
 alias open="kde-open"
 alias mkdir='mkdir -p'          # automatically create parent folders
 alias webshare='python2 -m SimpleHTTPServer' # share current dir via http:8000
-alias g='gvim --remote-silent'  # gvim one session
+alias g='grep -R'
 alias ns='netstat -panut'       # netstat
 
 # git aliases
