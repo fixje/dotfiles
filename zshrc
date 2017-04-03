@@ -213,6 +213,7 @@ fi
 
 chpwd() {
     if (( $DIRSTACKSIZE <= 0 )) || [[ -z $DIRSTACKFILE ]]; then return; fi
+    switch_environment_profiles
     local -ax my_stack
     my_stack=( ${PWD} ${dirstack} )
     print -l ${(u)my_stack} >! ${DIRSTACKFILE}
@@ -561,4 +562,55 @@ then
     alias aurs="yaourt -Ss"
     alias aurup="sudo yaourt --aur -Syu"
     alias aurins="yaourt -S"
+fi
+
+## Set shell environment by directory
+# This will set the environment variable EMAIL to different values, depending
+# on the directory in which you are.
+#
+# Additionally its possible to have hook functions associated to a profile.
+# Just define functions similar to the following:
+#
+# Thx Patrick
+# https://github.com/aptituz/zsh/blob/master/directory-based-environment-configuration
+#
+# function chpwd_profile_PROFILE() {
+# print "This is a hook for the PROFILE profile
+# }
+# Use like this:
+# ENV_DEFAULT=(
+#     "EMAIL"             "my@primary.mail"
+#     "GIT_AUTHOR_EMAIL"  "my@primary.mail"
+# )
+# ENV_AWESOME=(
+#     "EMAIL"             "my@other.mail"
+#     "GIT_AUTHOR_EMAIL"  "my@other.mail"
+# )
+# zstyle ':chpwd:profiles:/path/to/awesome*' profile awesome
+#
+function detect_env_profile {
+    local profile
+    zstyle -s ":chpwd:profiles:${PWD}" profile profile || profile='default'
+    profile=${(U)profile}
+    if [ "$profile" != "$ENV_PROFILE" ]; then
+        print "Switching to profile: $profile"
+    fi
+    ENV_PROFILE="$profile"
+}
+
+function switch_environment_profiles {
+    detect_env_profile
+    config_key="ENV_$ENV_PROFILE"
+    for key value in ${(kvP)config_key}; do
+        export $key=$value
+    done
+    # Taken from grml zshrc, allow chpwd_profile_functions()
+    if (( ${+functions[chpwd_profile_$ENV_PROFILE]} )) ; then
+        chpwd_profile_${ENV_PROFILE}
+    fi
+}
+
+if [ -f ~/.zsh_private ];
+then
+    source ~/.zsh_private
 fi
