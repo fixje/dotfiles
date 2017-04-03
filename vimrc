@@ -27,7 +27,7 @@ let mapleader = ","
 set t_Co=256
 set background=dark
 syntax on
-colorscheme desertEx
+" colorscheme desertEx
 " highlight TODO and FIXME in every filetype
 highlight Todo ctermbg=yellow guibg=yellow ctermfg=red guifg=red term=bold gui=bold
 highlight Fixme ctermbg=red guibg=red ctermfg=yellow guifg=yellow term=bold gui=bold
