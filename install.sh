@@ -41,6 +41,7 @@ ln -si ${CDIR}/inputrc ${HOME}/.inputrc
 ln -si ${CDIR}/my.cnf ${HOME}/.my.cnf
 ln -si ${CDIR}/screenrc ${HOME}/.screenrc
 ln -si ${CDIR}/tmux.conf ${HOME}/.tmux.conf
+ln -si ${CDIR}/tmux-status.sh ${HOME}/.tmux-status.sh
 ln -si ${CDIR}/vimperatorrc ${HOME}/.vimperatorrc
 install -d ~/.vim/swap
 ln -si ${CDIR}/vimrc ${HOME}/.vimrc
