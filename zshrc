@@ -224,7 +224,8 @@ chpwd() {
 ## Misc
 # disable C-s C-q aka xon/xoff
 stty -ixon
-EDITOR=vim
+
+path=("$HOME/bin" $path)
 
 bindkey -e                          # emacs key bindings
 setopt autocd beep extendedglob
@@ -236,6 +237,9 @@ setopt NO_BEEP                      # avoid "beep"ing
 
 # automatically remove duplicates from these arrays
 typeset -U path cdpath fpath manpath
+
+export PATH
+export EDITOR=vim
 
 # if we don't set $SHELL then aterm, rxvt,.. will use /bin/sh or /bin/bash :-/
 if [[ -z "$SHELL" ]] ; then
