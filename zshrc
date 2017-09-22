@@ -351,11 +351,10 @@ alias ns='netstat -panut'       # netstat
 
 # git aliases
 alias gd='git diff'
-alias gdt='git difftool'
 alias ga='git add'
 alias gst='git status'
-alias gca='git commit -a -m'
-alias gcm='git commit -m'
+alias gnm='git branch --no-merged master'
+alias gm='git branch --merged master'
 
 # mkdir and cd to dir
 mkcd () { mkdir -p $1 && cd $1 ; }
@@ -618,3 +617,17 @@ if [ -f ~/.zsh_private ];
 then
     source ~/.zsh_private
 fi
+
+### Start ssh-agent
+if hash ssh-agent &>/dev/null
+then
+    if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+        ssh-agent > ~/.ssh-agent-thing
+    fi
+    if [[ "$SSH_AGENT_PID" == "" ]]; then
+        eval "$(<~/.ssh-agent-thing)"
+    fi
+fi
+
+# Attach tmux session (if any) when connection through SSH
+[[ $SSH_CONNECTION ]] && [[ $(tmux list-sessions 2>/dev/null) ]] && [[ ! $TMUX ]] && tmux attach
