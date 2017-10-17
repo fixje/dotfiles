@@ -352,7 +352,7 @@ alias ns='netstat -panut'       # netstat
 # git aliases
 alias gd='git diff'
 alias ga='git add'
-alias gst='git status'
+alias gst='git status -sb'
 alias gnm='git branch --no-merged master'
 alias gm='git branch --merged master'
 
@@ -630,4 +630,4 @@ then
 fi
 
 # Attach tmux session (if any) when connection through SSH
-[[ $SSH_CONNECTION ]] && [[ $(tmux list-sessions 2>/dev/null) ]] && [[ ! $TMUX ]] && tmux attach
+[[ $SSH_CONNECTION ]] && [[ $(tmux list-sessions 2>/dev/null) ]] && [[ ! $TMUX ]] && [[ "$TERM" != "screen" ]] && tmux attach
