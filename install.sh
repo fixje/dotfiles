@@ -39,6 +39,7 @@ ln -si ${CDIR}/gitconfig ${HOME}/.gitconfig
 ln -si ${CDIR}/gvimrc ${HOME}/.gvimrc
 ln -si ${CDIR}/inputrc ${HOME}/.inputrc
 ln -si ${CDIR}/my.cnf ${HOME}/.my.cnf
+ln -si ${CDIR}/psqlrc ${HOME}/.psqlrc
 ln -si ${CDIR}/screenrc ${HOME}/.screenrc
 ln -si ${CDIR}/tmux.conf ${HOME}/.tmux.conf
 ln -si ${CDIR}/tmux-status.sh ${HOME}/.tmux-status.sh
