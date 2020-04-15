@@ -342,12 +342,12 @@ alias lll='ls -l --group-directories-first | less'
 alias sudo='sudo '              # keep all functions and aliases using sudo
 alias j='jobs -l'
 alias ..='cd ..'
-alias svi='sudoedit'
-alias open="kde-open"
 alias mkdir='mkdir -p'          # automatically create parent folders
-alias webshare='python2 -m SimpleHTTPServer' # share current dir via http:8000
+alias webshare='python3 -m http.server' # share current dir via http:8000
 alias g='grep -R'
 alias ns='netstat -panut'       # netstat
+alias tma='tmux list-sessions && tmux attach || tmux'
+alias certinfo='openssl x509 -text -noout -in'
 
 # git aliases
 alias gd='git diff'
@@ -517,6 +517,7 @@ alias extract=simple-extract
 
 # functions concerning network stuff
 geoip () { lynx --dump "http://www.geoiptool.com/?IP=$1" | egrep --color 'City:|IP Address:|Country:' ;}
+geoip2 () { curl http://api.db-ip.com/v2/free/$1 ; }
 myip() {  lynx --dump http://checkip.dyndns.org | sed -e 's/Current IP Address://' -e 's/ //g' ;}
 # download files of specific type from a website; usage: wgetall pdf http://example.org
 wgetall () { wget -r -l1 -nd -Nc -A.$@ $@; }
