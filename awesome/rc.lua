@@ -21,6 +21,9 @@ require("awful.remote")
 local screens = require("screens")
 local lain = require("lain")
 
+local xrandr = require("xrandr")
+xrandr.auto()
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -51,7 +54,7 @@ end
 beautiful.init(awful.util.get_themes_dir() .. "zenburn/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "konsole"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -101,9 +104,29 @@ local function client_menu_toggle_fn()
 end
 
 -- Run or raise client based on its class name
-function ror_class(cmd, cls)
-    local matcher = function (c) return awful.rules.match(c, {class = cls}) end
+function ror_class(cmd, cls, instance)
+    instance = instance or nil
+    local matcher = function (c)
+        if instance == nil then
+            return awful.rules.match(c, {class = cls})
+        else
+            return awful.rules.match(c, {class = cls, instance = instance})
+        end
+    end
     awful.client.run_or_raise(cmd, matcher)
+end
+
+local function lower_volume()
+    local cmd = [[amixer -D pulse sset Master 5%- | grep "Front Left: Playback" | sed "s/.*\[\([0-9]\+%\)\].*/Volume \1/"]]
+    awful.spawn.easy_async_with_shell(cmd, function(out)
+        naughty.notify({ text = out, timeout = 1, ontop = false })
+    end)
+end
+local function raise_volume()
+    local cmd = [[amixer -D pulse sset Master 5%+ | grep "Front Left: Playback" | sed "s/.*\[\([0-9]\+%\)\].*/Volume \1/"]]
+    awful.spawn.easy_async_with_shell(cmd, function(out)
+        naughty.notify({ text = out, timeout = 1, ontop = false })
+    end)
 end
 -- }}}
 
@@ -275,7 +298,12 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    if s == screen.primary then
+        awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    else
+        -- awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+        awful.tag({ "1" }, s, awful.layout.layouts[1])
+    end
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -308,7 +336,6 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
             wibox.widget.systray(),
             cpuicon,
             cpuinfo,
@@ -388,13 +415,9 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "t", function () awful.spawn(terminal) end),
     awful.key({ modkey,           }, "e", function () awful.spawn("krunner") end),
     awful.key({ modkey,           }, "g", function () awful.spawn("dolphin") end),
-    awful.key({ modkey, }, 'F1', function () ror_class("firefox", "Firefox") end),
-    awful.key({ modkey, }, 'F2', function () ror_class("kopete", "Kopete") end),
-    awful.key({ modkey, }, 'F3', function () ror_class("eclipse", "Eclipse") end),
-    awful.key({ modkey, }, 'F4', function () ror_class("kontact", "Kontact") end),
+    awful.key({ modkey, }, 'F1', function () ror_class("google-chrome-stable", "Google-chrome", "google-chrome") end),
+    awful.key({ modkey, }, 'F4', function () ror_class("thunderbird", "Thunderbird") end),
     awful.key({ modkey, }, 'F5', function () ror_class("clementine", "Clementine") end),
-    awful.key({ modkey, }, 'F6', function () ror_class("google-chrome-stable", "Google-chrome") end),
-    awful.key({ modkey, }, 'F7', function () ror_class("skype", "Skype") end),
     awful.key({ modkey, }, 'F8', function () ror_class("pavucontrol", "Pavucontrol") end),
 
     awful.key({ modkey, "Control" }, "r", awesome.restart),
@@ -413,12 +436,12 @@ globalkeys = gears.table.join(
     -- awful.key({ modkey }, "q", function () mousefinder:find() end),
 
     -- Prompt
-    awful.key({ modkey }, "r",     function () mypromptbox[mouse.screen]:run() end),
+    awful.key({ modkey }, "r",     function () mouse.screen.mypromptbox:run() end),
 
     awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run({ prompt = "Run Lua code: " },
-                  mypromptbox[mouse.screen].widget,
+                  s.mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
@@ -432,16 +455,12 @@ globalkeys = gears.table.join(
 end),
     awful.key({}, "XF86Launch5", function () awful.util.spawn("/usr/local/bin/touchpad-toggle.sh") end),
     awful.key({}, "XF86LaunchA", function () awful.screen.focused().quake:toggle() end),
+    awful.key({ modkey }, "l",   function () awful.spawn.with_shell("xlock -mode forest") end),
+    awful.key({}, "XF86LaunchA",   function () xrandr.xrandr() end),
     awful.key({ modkey }, "XF86LaunchA", function () drop("urxvt -name urxvt_drop2 -e $SHELL -ci 'ipython2'", "bottom", "left", 0.50, 0.30, true, screens.main) end),
-    awful.key({ modkey }, "^", function () drop("urxvt -name urxvt_drop3 -e $SHELL -ci 'vim ~/notes'", "bottom", "right", 0.50, 0.30, true, screens.main) end),
-    --awful.key({ }, "XF86AudioLowerVolume", function () lower_volume() end),
-    --awful.key({ }, "XF86AudioLowerVolume", function () lower_volume() end),
-    --awful.key({ }, "XF86AudioRaiseVolume", function () raise_volume() end),
-    --awful.key({ }, "XF86AudioMute", function () 
-                --awful.util.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") 
-    --end)
-    awful.key({ modkey }, "-", function () lower_volume() end),
-    awful.key({ modkey }, "+", function () raise_volume() end),
+    awful.key({ }, "XF86AudioLowerVolume", function () lower_volume() end),
+    awful.key({ }, "XF86AudioRaiseVolume", function () raise_volume() end),
+    awful.key({ }, "XF86AudioMute", function () awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") end),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"})
@@ -615,11 +634,23 @@ awful.rules.rules = {
     },
        properties = { floating = true } },
     { rule_any = { class = { "Google-chrome" } },
-       properties = { tag = "6" } },
-    { rule = { class = "Eclipse" },
-       properties = { tag = "2" } },
-    { rule = { class = "Kontact" },
-       properties = { tag = "4" } },
+       properties = { tag = "1", floating = false, maximized = false }
+    },
+    { rule = { class = "jetbrains-idea" },
+       properties = { tag = "2", maximized = false } },
+    { rule = { class = "yakuake" },
+      properties = { floating = true, maximized = true }
+    },
+    { rule = { class = "Thunderbird" },
+       properties = { tag = "4", maximized = false, floating = false } },
+   -- plasma widgets
+   {
+       rule = { class = "Plasma-desktop" },
+       properties = { floating = true },
+       callback = function(c)
+           c:geometry( { width = 600 , height = 500 } )
+       end,
+   },
 }
 -- }}}
 
@@ -690,8 +721,7 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+awful.spawn("nm-applet")
+awful.spawn("yakuake")
 -- }}}
 --
-
-require("dashboard")
-
