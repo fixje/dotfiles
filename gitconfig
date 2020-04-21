@@ -9,6 +9,10 @@
     unignore = !git update-index --no-assume-unchanged
     ignored = !git ls-files -v | grep ^[a-z] 
     np = !git log --branches --not --remotes
+    dt = !git difftool --dir-diff -g
+    lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --exclude='refs/stash*' --all --cherry-mark
+    lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n'' %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+    lg = !"git lg1"
 [color]
     diff = auto
     status = auto
@@ -19,8 +23,12 @@
     editor = vim
 [diff]
     tool = vimdiff
-    guitool = gvimdiff
+    guitool = meld
 [difftool]
     prompt = False
 [push]
     default = matching
+[merge]
+	tool = meld
+[cola]
+	spellcheck = false
