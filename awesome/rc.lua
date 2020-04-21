@@ -152,7 +152,10 @@ mymainmenu = freedesktop.menu.build({
     }
 })
 
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+-- Icons and Widgets
+icons = awful.util.getdir("config") .. "/themes/icons"
+
+mylauncher = awful.widget.launcher({ image = icons .. "/fox.png",
                                      menu = mymainmenu })
 
 -- Menubar configuration
@@ -169,9 +172,6 @@ seperator = wibox.widget.textbox()
 seperator:set_text(" | ")
 spacer = wibox.widget.textbox()
 spacer.width = 6
-
--- Icons and Widgets
-icons = awful.util.getdir("config") .. "/themes/icons"
 
 cpuicon = wibox.widget.imagebox()
 -- awful.util.get_themes_dir()
