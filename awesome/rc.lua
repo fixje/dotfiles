@@ -418,6 +418,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey, }, 'F1', function () ror_class("google-chrome-stable", "Google-chrome", "google-chrome") end),
     awful.key({ modkey, }, 'F4', function () ror_class("thunderbird", "Thunderbird") end),
     awful.key({ modkey, }, 'F5', function () ror_class("clementine", "Clementine") end),
+    awful.key({ modkey, }, 'F6', function () ror_class("signal-desktop", "Signal") end),
     awful.key({ modkey, }, 'F8', function () ror_class("pavucontrol", "Pavucontrol") end),
 
     awful.key({ modkey, "Control" }, "r", awesome.restart),
@@ -447,16 +448,11 @@ globalkeys = gears.table.join(
               end),
 
     -- custom hotkeys
-    awful.key({}, "XF86ModeLock",   function () awful.util.spawn.with_shell("dbus-send --session --dest=org.freedesktop.ScreenSaver --type=method_call /ScreenSaver org.freedesktop.ScreenSaver.Lock") end),
-    awful.key({}, "XF86Standby",   function () awful.util.spawn.with_shell("xset dpms force off") end),
-    awful.key({}, "XF86Launch1",   function () awful.util.spawn.with_shell("/home/fixje/bin/display-disconnect.sh") end),
-    awful.key({}, "XF86WebCam", function () awful.util.spawn.with_shell("/home/fixje/bin/display-setup.sh") end),
-    awful.key({}, "XF86Launch4", function () awful.util.spawn("sudo /usr/local/bin/bluetooth-toggle.sh") 
-end),
-    awful.key({}, "XF86Launch5", function () awful.util.spawn("/usr/local/bin/touchpad-toggle.sh") end),
-    awful.key({}, "XF86LaunchA", function () awful.screen.focused().quake:toggle() end),
     awful.key({ modkey }, "l",   function () awful.spawn.with_shell("xlock -mode forest") end),
     awful.key({}, "XF86LaunchA",   function () xrandr.xrandr() end),
+    awful.key({}, "XF86Explorer", function () awful.spawn("/home/fixje/bin/touchpad-toggle.sh") end),
+    awful.key({}, "XF86MonBrightnessUp", function () awful.spawn("xbacklight -inc 10") end),
+    awful.key({}, "XF86MonBrightnessDown", function () awful.spawn("xbacklight -dec 10") end),
     awful.key({ modkey }, "XF86LaunchA", function () drop("urxvt -name urxvt_drop2 -e $SHELL -ci 'ipython2'", "bottom", "left", 0.50, 0.30, true, screens.main) end),
     awful.key({ }, "XF86AudioLowerVolume", function () lower_volume() end),
     awful.key({ }, "XF86AudioRaiseVolume", function () raise_volume() end),
