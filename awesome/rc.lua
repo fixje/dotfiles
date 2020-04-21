@@ -723,5 +723,7 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 awful.spawn("nm-applet")
 awful.spawn("yakuake")
+-- left-handed mouse
+-- awful.spawn('xmodmap -e "pointer = 3 2 1"')
 -- }}}
 --
