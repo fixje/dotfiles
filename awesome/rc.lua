@@ -58,6 +58,9 @@ terminal = "konsole"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
+-- Default screen for notifications
+naughty.config.defaults.screen = 1
+
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -175,7 +178,7 @@ spacer.width = 6
 
 cpuicon = wibox.widget.imagebox()
 -- awful.util.get_themes_dir()
-cpuicon:set_image("/usr/share/awesome/themes/icons/zenburn/cpu.png")
+cpuicon:set_image(icons .. "/cpu.png")
 cpuicon.bg_align = "middle"
 cpuicon.width = 8
 
@@ -414,8 +417,10 @@ globalkeys = gears.table.join(
     -- Standard program
     awful.key({ modkey,           }, "t", function () awful.spawn(terminal) end),
     awful.key({ modkey,           }, "e", function () awful.spawn("krunner") end),
-    awful.key({ modkey,           }, "g", function () awful.spawn("dolphin") end),
+    awful.key({ modkey,           }, "g", function () awful.spawn.with_shell("KDE_FULL_SESSION=true dolphin") end),
     awful.key({ modkey, }, 'F1', function () ror_class("google-chrome-stable", "Google-chrome", "google-chrome") end),
+    awful.key({ modkey, }, 'F3', function () ror_class("google-chrome-stable --app=https://app.standardnotes.org", "Google-chrome", "app.standardnotes.org") end),
+    -- awful.key({ modkey, }, 'F3', function () ror_class("/home/fixje/bin/intellij-idea", "jetbrains-idea") end),
     awful.key({ modkey, }, 'F4', function () ror_class("thunderbird", "Thunderbird") end),
     awful.key({ modkey, }, 'F5', function () ror_class("clementine", "Clementine") end),
     awful.key({ modkey, }, 'F6', function () ror_class("signal-desktop", "Signal") end),
@@ -437,7 +442,8 @@ globalkeys = gears.table.join(
     -- awful.key({ modkey }, "q", function () mousefinder:find() end),
 
     -- Prompt
-    awful.key({ modkey }, "r",     function () mouse.screen.mypromptbox:run() end),
+    -- awful.key({ modkey }, "r",     function () mouse.screen.mypromptbox:run() end),
+    awful.key({ modkey }, "r",     function () awful.spawn.with_shell("rofi -show drun") end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -449,10 +455,12 @@ globalkeys = gears.table.join(
 
     -- custom hotkeys
     awful.key({ modkey }, "l",   function () awful.spawn.with_shell("xlock -mode forest") end),
+    awful.key({}, "XF86Standby",   function () awful.spawn.with_shell("xset dpms force off") end),
     awful.key({}, "XF86LaunchA",   function () xrandr.xrandr() end),
     awful.key({}, "XF86Explorer", function () awful.spawn("/home/fixje/bin/touchpad-toggle.sh") end),
     awful.key({}, "XF86MonBrightnessUp", function () awful.spawn("xbacklight -inc 10") end),
     awful.key({}, "XF86MonBrightnessDown", function () awful.spawn("xbacklight -dec 10") end),
+    awful.key({}, "XF86Launch1", function () awful.spawn("qdbus org.kde.yakuake /yakuake/window org.kde.yakuake.toggleWindowState") end),
     awful.key({ modkey }, "XF86LaunchA", function () drop("urxvt -name urxvt_drop2 -e $SHELL -ci 'ipython2'", "bottom", "left", 0.50, 0.30, true, screens.main) end),
     awful.key({ }, "XF86AudioLowerVolume", function () lower_volume() end),
     awful.key({ }, "XF86AudioRaiseVolume", function () raise_volume() end),
@@ -589,7 +597,9 @@ awful.rules.rules = {
         },
         class = {
           "Arandr",
+          "git-cola",
           "Gpick",
+          "Guake",
           "Kruler",
           "MessageWin",  -- kalarm.
           "Sxiv",
@@ -612,17 +622,14 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = false }
     },
 
-    -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
     { rule = { name = "alsamixer" },
       properties = { floating = true  } },
     { rule_any = { class = { "clementine", "Clementine" } },
-      properties = { tag = "5" } },
+      properties = { screen = 1, tag = "5" } },
     { rule = { class = "Firefox" },
-       properties = { tag = "1" } },
+       properties = { screen = 1, tag = "1" } },
     { rule_any = { class = { "Pidgin", "Kopete", "Skype" } },
-       properties = { tag = "7" } },
+       properties = { screen = 1, tag = "7" } },
     { rule_any = { class = { "Pavucontrol" },
          callback = function(c)
               c:geometry( { width = 600 , height = 500 } )
@@ -630,15 +637,15 @@ awful.rules.rules = {
     },
        properties = { floating = true } },
     { rule_any = { class = { "Google-chrome" } },
-       properties = { tag = "1", floating = false, maximized = false }
+       properties = { screen = 1, tag = "1", floating = false, maximized = false }
     },
     { rule = { class = "jetbrains-idea" },
-       properties = { tag = "2", maximized = false } },
+       properties = { screen = 1, tag = "2", maximized = false } },
     { rule = { class = "yakuake" },
       properties = { floating = true, maximized = true }
     },
     { rule = { class = "Thunderbird" },
-       properties = { tag = "4", maximized = false, floating = false } },
+       properties = { screen = 1, tag = "4", maximized = false, floating = false } },
    -- plasma widgets
    {
        rule = { class = "Plasma-desktop" },
