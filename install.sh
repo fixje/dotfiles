@@ -28,6 +28,7 @@ ln -si ${CDIR}/awesome ${HOME}/.config/awesome
 ln -si ${CDIR}/fluxbox ${HOME}/.fluxbox
 ln -si ${CDIR}/htop ${HOME}/.config/htop
 ln -si ${CDIR}/pgcli ${HOME}/.config/pgcli
+ln -si ${CDIR}/rofi ${HOME}/.config/rofi
 ln -si ${CDIR}/qjoypad3 ${HOME}/.qjoypad3
 ln -si ${CDIR}/synergy ${HOME}/.config/synergy
 ln -si ${CDIR}/vim ${HOME}/.vim
