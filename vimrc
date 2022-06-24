@@ -7,6 +7,8 @@
 "    - vim-ipython
 "    - ultisnips
 "    - NERDCommenter
+"    - NERDTree or CtrlP
+"    - FuzzyFinder
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -34,6 +36,10 @@ highlight Fixme ctermbg=red guibg=red ctermfg=yellow guifg=yellow term=bold gui=
 match Todo /TODO:*/
 match Fixme /FIXME:*/
 
+if &diff
+    colorscheme solarized
+endif
+
 "" Change the status line based on mode
 if version >= 700
   au InsertEnter * hi StatusLine term=reverse ctermbg=5 gui=undercurl guisp=Magenta
@@ -47,7 +53,7 @@ set backspace=2
 set nobackup
 set nowritebackup
 set cursorline              " hilight current line
-set colorcolumn=80
+set colorcolumn=160
 highlight ColorColumn ctermbg=7  guibg=LightGray
 set directory=~/.vim/swap   " Don't clutter my dirs up with swp and tmp files
 set guioptions-=T           " Disallows gui toolbar
@@ -158,18 +164,17 @@ map <Leader>bd :bd<CR>
 " git diff
 nmap <Leader>gd :new<CR>:read !git diff<CR>:set syntax=diff buftype=nofile bufhidden=delete noswapfile<CR>gg
 
-""""" Plugin Settings
-"" LaTeX Suite
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor = "latex"
-set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after
-let g:Tex_HotKeyMappings = 'itemize,center,enumerate,figure' 
-let g:Tex_MultipleCompileFormats = 'pdf'
-let g:Tex_DefaultTargetFormat='pdf'
-let Tex_FoldedSections=""
-let Tex_FoldedEnvironments=""
-let Tex_FoldedMisc=""
+" NERDTree
+map <Leader>nt :NERDTreeToggle<CR>
 
+" CtrlP buffer and file explorer
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+"" Go to nearest VCS root
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_root_markers = ['pom.xml', '.p4ignore']
+
+""""" Plugin Settings
 "" NERDCommenter
 " just as a reminder:
 " Comment: <Leader>cc
@@ -189,32 +194,6 @@ let g:pymode_lint_cwindow = 0
 " etc
 " let g:pymode_lint_ignore = ""
 
-"" Ultisnips
-let g:UltiSnipsExpandTrigger="<C-tab>"
-let g:UltiSnipsListSnippets="<C-s-tab>"
-" HACK for terminal (in tmux set-option -g xterm-keys on)
-imap [27;5;9~ <C-tab>
-smap [27;5;9~ <C-tab>
-nmap [27;5;9~ <C-tab>
-xmap [27;5;9~ <C-tab>
-
-"" YouCompleteMe
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_key_list_previous_completion=['<Up>']
-
-"" vim-vimux
-map <Leader>vl :VimuxRunLastCommand<CR>
-map <Leader>vp :VimuxPromptPane<CR>
-map <Leader>vi :call VimuxRunCommand("ipython2")<CR>
-" send C-c Up <CR> to terminal (to restart application)
-function! RestartVimux()
-    " C-c ArrowUp <CR>
-    :call VimuxRunCommand("OA")
-endfunction
-map <Leader>vr :call RestartVimux()<CR>
-vmap <silent> <C-x> :python run_tmux_python_chunk()<CR>
-map <Leader>vx :python run_tmux_python_buffer(True)<CR>
-
 " reload firefox current tab
 map <Leader>r :silent execute "!/home/fixje/hacks/firefox-remote-reload.sh &> /dev/null &"<CR> :redraw!<CR>
 au BufWritePost *.html silent execute "!/home/fixje/hacks/firefox-remote-reload.sh &> /dev/null &"
@@ -228,11 +207,12 @@ endif
 function! LeaderHelp()
 python << endpython
 import re
+import os
 reg = re.compile("^(i|v|)?(no)?(re)?map.*<[Ll]eader>.*$")
-with open(".vimrc") as rc:
+with open(os.environ["HOME"] + "/.vimrc") as rc:
     for l in rc:
         if reg.match(l):
             print l
 endpython
 endfunction
-map <Leader>h :call LeaderHelp()
+map <Leader>h :call LeaderHelp()<CR>
