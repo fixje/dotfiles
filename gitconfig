@@ -12,7 +12,10 @@
     dt = !git difftool --dir-diff -g
     lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --exclude='refs/stash*' --all --cherry-mark
     lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n'' %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-    lg = !"git lg1"
+    #lg = !"git lg1"
+    lg = !"~/.gitfunctions.sh hashes"
+    br = !"~/.gitfunctions.sh branches"
+    st = !"~/.gitfunctions.sh stash"
 [color]
     diff = auto
     status = auto
@@ -21,6 +24,7 @@
 [core]
     excludesfile = ~/.gitignore
     editor = vim
+	askpass = /usr/bin/ksshaskpass
 [diff]
     tool = vimdiff
     guitool = meld
@@ -28,7 +32,12 @@
     prompt = False
 [push]
     default = matching
+[pull]
+    ff = only
 [merge]
 	tool = meld
 [cola]
 	spellcheck = false
+	startupmode = list
+[init]
+	defaultBranch = main

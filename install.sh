@@ -36,6 +36,7 @@ ln -si ${CDIR}/bashrc ${HOME}/.bashrc
 ln -si ${CDIR}/zshrc ${HOME}/.zshrc
 ln -si ${CDIR}/zsh ${HOME}/.zsh
 ln -si ${CDIR}/gitconfig ${HOME}/.gitconfig
+ln -si ${CDIR}/gitfunctions.sh ${HOME}/.gitfunctions.sh
 ln -si ${CDIR}/gvimrc ${HOME}/.gvimrc
 ln -si ${CDIR}/inputrc ${HOME}/.inputrc
 ln -si ${CDIR}/my.cnf ${HOME}/.my.cnf
