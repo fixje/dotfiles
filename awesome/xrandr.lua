@@ -57,6 +57,7 @@ local function menu()
 
    -- work setup
    menu[#menu + 1] = { '<span weight="bold">Uni Workspace</span>', "xrandr --output HDMI1 --auto --primary --left-of DP2 --output eDP1 --auto --rotate normal --left-of HDMI1 --output DP2 --auto --rotate left" }
+   menu[#menu + 2] = { '<span weight="bold">Home Office</span>', "xrandr --output DP2 --primary --auto --output HDMI1 --left-of DP2 --auto --rotate left --output eDP1 --off" }
 
    for _, choice in pairs(choices) do
       local cmd = "xrandr"
@@ -131,7 +132,7 @@ local function xrandr()
       label = "Keep the current configuration"
       state.index = nil
    else
-      label, action = unpack(next)
+      label, action = table.unpack(next)
    end
    state.cid = naughty.notify({ text = label,
                                 icon = icon_path,
