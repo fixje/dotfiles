@@ -375,6 +375,25 @@ bak () {
     cp -a $1 ${1}.bak_$(date +%Y%m%d)
 }
 
+# run command in docker container with matching name
+dexec () {
+    cnt=$(docker ps --format "{{.Names}}" | grep $1 | wc -l)
+
+    if [[ $cnt -lt 1 ]]
+    then
+        echo "No matching container"
+        return
+    elif [[ $cnt -gt 1 ]]
+    then
+        echo "Multiple matches"
+        docker ps --format "{{.Names}}" | grep $1
+        return
+    else
+        docker exec -it $(docker ps --format "{{.Names}}" | grep $1) $2
+    fi
+}
+
+
 # Usage: simple-extract <file>
 # Using option -d deletes the original archive file.
 #f5# Smart archive extractor
