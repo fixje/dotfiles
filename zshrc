@@ -632,3 +632,27 @@ fi
 
 # Attach tmux session (if any) when connection through SSH
 [[ $SSH_CONNECTION ]] && [[ $(tmux list-sessions 2>/dev/null) ]] && [[ ! $TMUX ]] && [[ "$TERM" != "screen" ]] && tmux attach
+
+## Convenience for systems with kubectl
+if hash kubectl &>/dev/null
+then
+    source <(kubectl completion zsh)
+    alias k=kubectl
+fi
+
+# Node Version Manager
+if [[ -f /usr/share/nvm/init-nvm.sh ]]
+then
+    source /usr/share/nvm/init-nvm.sh
+fi
+
+# fzf on Arch
+if [[ -f /usr/share/fzf/key-bindings.zsh ]]
+then
+    source /usr/share/fzf/key-bindings.zsh
+fi
+if [[ -f /usr/share/fzf/completion.zsh ]]
+then
+    source /usr/share/fzf/completion.zsh
+    if [ ! -z "$TMUX" ]; then export FZF_TMUX=1; fi
+fi
