@@ -727,9 +727,12 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+awful.spawn("/home/fixje/bin/fix-caps.sh")
 awful.spawn("nm-applet")
 awful.spawn("yakuake")
 -- left-handed mouse
--- awful.spawn('xmodmap -e "pointer = 3 2 1"')
+awful.spawn('xmodmap -e "pointer = 3 2 1"')
+
 -- }}}
 --
