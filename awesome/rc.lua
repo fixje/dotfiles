@@ -418,10 +418,11 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "t", function () awful.spawn(terminal) end),
     awful.key({ modkey,           }, "e", function () awful.spawn("krunner") end),
     awful.key({ modkey,           }, "g", function () awful.spawn.with_shell("KDE_FULL_SESSION=true dolphin") end),
-    awful.key({ modkey, }, 'F1', function () ror_class("google-chrome-stable", "Google-chrome", "google-chrome") end),
-    awful.key({ modkey, }, 'F3', function () ror_class("google-chrome-stable --app=https://app.standardnotes.org", "Google-chrome", "app.standardnotes.org") end),
+    awful.key({ modkey, }, 'F1', function () ror_class("google-chrome-stable --profile-directory=Default", "Google-chrome", "google-chrome") end),
+    awful.key({ modkey, }, 'F2', function () ror_class("google-chrome-stable --profile-directory=Default --app=https://discocloud1.cs.uni-kl.de/chat/direct/matze", "Google-chrome", "discocloud1.cs.uni-kl.de__chat_direct_matze") end),
+    awful.key({ modkey, }, 'F3', function () ror_class("google-chrome-stable --profile-directory=Default --app=https://app.standardnotes.com", "Google-chrome", "app.standardnotes.com") end),
     -- awful.key({ modkey, }, 'F3', function () ror_class("/home/fixje/bin/intellij-idea", "jetbrains-idea") end),
-    awful.key({ modkey, }, 'F4', function () ror_class("thunderbird", "Thunderbird") end),
+    awful.key({ modkey, }, 'F4', function () ror_class("thunderbird", "thunderbird") end),
     awful.key({ modkey, }, 'F5', function () ror_class("clementine", "Clementine") end),
     awful.key({ modkey, }, 'F6', function () ror_class("signal-desktop", "Signal") end),
     awful.key({ modkey, }, 'F8', function () ror_class("pavucontrol", "Pavucontrol") end),
@@ -457,6 +458,8 @@ globalkeys = gears.table.join(
     awful.key({ modkey }, "l",   function () awful.spawn.with_shell("xlock -mode forest") end),
     awful.key({}, "XF86Standby",   function () awful.spawn.with_shell("xset dpms force off") end),
     awful.key({}, "XF86LaunchA",   function () xrandr.xrandr() end),
+    awful.key({}, "XF86WebCam", function () awful.spawn.with_shell("/home/fixje/bin/display-setup.sh") end),
+    -- awful.key({}, "XF86Launch4", function () awful.spawn("sudo /usr/local/bin/bluetooth-toggle.sh") end),
     awful.key({}, "XF86Explorer", function () awful.spawn("/home/fixje/bin/touchpad-toggle.sh") end),
     awful.key({}, "XF86MonBrightnessUp", function () awful.spawn("xbacklight -inc 10") end),
     awful.key({}, "XF86MonBrightnessDown", function () awful.spawn("xbacklight -dec 10") end),
@@ -644,7 +647,7 @@ awful.rules.rules = {
     { rule = { class = "yakuake" },
       properties = { floating = true, maximized = true }
     },
-    { rule = { class = "Thunderbird" },
+    { rule = { class = "thunderbird" },
        properties = { screen = 1, tag = "4", maximized = false, floating = false } },
    -- plasma widgets
    {
