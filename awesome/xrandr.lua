@@ -56,8 +56,8 @@ local function menu()
    local choices = arrange(out)
 
    -- work setup
-   menu[#menu + 1] = { '<span weight="bold">Uni Workspace</span>', "xrandr --output HDMI1 --auto --primary --left-of DP2 --output eDP1 --auto --rotate normal --left-of HDMI1 --output DP2 --auto --rotate left" }
-   menu[#menu + 2] = { '<span weight="bold">Home Office</span>', "xrandr --output DP2 --primary --auto --output HDMI1 --left-of DP2 --auto --rotate left --output eDP1 --off" }
+   menu[#menu + 1] = { '<span weight="bold">Home Office</span>', "xrandr --output DP2 --primary --auto --output HDMI1 --left-of DP2 --auto --rotate left --output eDP1 --off" }
+   menu[#menu + 2] = { '<span weight="bold">Uni Workspace</span>', "xrandr --output HDMI1 --auto --primary --output eDP1 --auto --rotate normal --left-of HDMI1 " }
 
    for _, choice in pairs(choices) do
       local cmd = "xrandr"
