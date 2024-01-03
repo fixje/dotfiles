@@ -1,4 +1,4 @@
-let mapleader = ","
+let mapleader = " "
 
 "" Colors
 " highlight TODO and FIXME in every filetype
@@ -6,10 +6,16 @@ highlight Todo ctermbg=yellow guibg=yellow ctermfg=red guifg=red term=bold gui=b
 highlight Fixme ctermbg=red guibg=red ctermfg=yellow guifg=yellow term=bold gui=bold
 match Todo /TODO:*/
 match Fixme /FIXME:*/
+highlight Task ctermfg=DarkYellow guifg=DarkYellow
+match Task /^\s*- \[ \].*/
 
+"
+" """""" User Interface
 set backspace=2
 highlight ColorColumn ctermbg=7  guibg=LightGray
 set listchars=tab:>·,trail:·
+
+set guifont=Hack
 
 "" Page scroll with cursor in the middle
 noremap <C-u> <C-u>zz
@@ -41,3 +47,7 @@ map <Leader>nt :set expandtab list<CR>
 
 " git diff
 nmap <Leader>gd :new<CR>:read !git diff<CR>:set syntax=diff buftype=nofile bufhidden=delete noswapfile<CR>gg
+
+let g:vim_markdown_folding_disabled = 1
+
+let g:airline_powerline_fonts = 1

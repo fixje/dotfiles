@@ -1,9 +1,16 @@
 require("lazy").setup({
         -- { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true},
         { "rebelot/kanagawa.nvim" },
+        { "dracula/vim" },
         { "theprimeagen/harpoon" },
         { "mbbill/undotree" },
+        { "godlygeek/tabular" },
+        { "preservim/vim-markdown" },
+        -- on Arch install the font packages `pacman -S ttf-hack-nerd ttf-roboto-mono-nerd`
         { "nvim-tree/nvim-tree.lua", dependencies = "nvim-tree/nvim-web-devicons" },
+        -- on Arch install the font packages `pacman -S powerline-fonts`
+        { "vim-airline/vim-airline" },
+        { "opdavies/toggle-checkbox.nvim" },
 
         {
                 "numToStr/Comment.nvim",

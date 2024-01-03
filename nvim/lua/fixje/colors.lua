@@ -28,6 +28,7 @@ vim.o.background = "dark" -- or "light" for light mode
 -- vim.cmd.colorscheme "gruvbox"
 --
 --
+
 require("kanagawa").setup({
     compile = false,             -- enable compiling the colorscheme
     undercurl = true,            -- enable undercurls
@@ -53,4 +54,3 @@ require("kanagawa").setup({
     },
 })
 vim.cmd("colorscheme kanagawa")
-
